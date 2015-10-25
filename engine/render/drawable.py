@@ -15,7 +15,9 @@ class Drawable:
 		self.size = [0,0];
 		self.opacity = 1;
 		self.rotation = 0;
+		self.type = None;
 		self.texture = None;
+		self.crop = None;
 
 	#	--------------------------------------------------- *\
 	#		[function] getPosition()
@@ -106,3 +108,30 @@ class Drawable:
 	#	--------------------------------------------------- */
 	def getRotation(self):
 		return self.rotation;
+
+	#	--------------------------------------------------- *\
+	#		[function] getCrop()
+	#
+	#		* Return the cropped area *
+	#		Return : tuple
+	#	--------------------------------------------------- */
+	def getCrop(self):
+		return self.crop;
+
+	#	--------------------------------------------------- *\
+	#		[function] setCrop(x, y, width, height)
+	#
+	#		* Set the cropped area *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def setCrop(self, x, y, width, height):
+		self.crop = (x, y, width, height);
+
+	#	--------------------------------------------------- *\
+	#		[function] getType()
+	#
+	#		* Return the type of the drawable *
+	#		Return : type
+	#	--------------------------------------------------- */
+	def getType(self):
+		return self.type;

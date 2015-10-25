@@ -46,11 +46,24 @@ def onUpdate():
 			# opacity
 			texture.set_alpha(element.getOpacity() * 255);
 			# scale
-			texture = pygame.transform.scale(texture, (size[0],size[1]));
+			if not element.getType() == "sprite":
+				texture = pygame.transform.scale(texture, (size[0],size[1]));
 			# rotation
 			texture = pygame.transform.rotate(texture, element.getRotation());
 
-			Global.screen.blit(texture, position);
+			crop = None;
+			if(element.getType() == "sprite"):
+				currentImage = element.getCurrentImage();
+				frameSize = element.getFrameSize();
+				crop = (frameSize[0] * currentImage, 0, frameSize[0], frameSize[1]);
+				newTexture = pygame.Surface((frameSize[0], frameSize[1]), pygame.HWSURFACE);
+
+				newTexture.blit(texture, (0,0), crop);
+				newTexture = pygame.transform.scale(newTexture, (size[0],size[1]));
+
+				Global.screen.blit(newTexture, position);
+			else:
+				Global.screen.blit(texture, position, crop);
 
 	# Call the functions
 	for function in functionsToCall:
