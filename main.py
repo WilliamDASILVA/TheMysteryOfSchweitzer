@@ -9,9 +9,14 @@
 #		Import modules
 #	--------------------------------------------------- */
 import pygame;
+import imp;
+from engine.render.text import Text;
+from engine.World import World;
+from engine.Camera import Camera;
 from engine import Global;
 from engine import Render;
-from engine.render.text import Text;
+
+from gameplay.behaviours import cameraBehaviour;
 
 #	--------------------------------------------------- *\
 #		Init the application
@@ -23,13 +28,13 @@ Global.isApplicationRunning = True;
 Global.screen = pygame.display.set_mode(Global.screenSize, pygame.HWSURFACE);
 pygame.display.set_caption(Global.windowTitle);
 
+# world
+world = World();
 
-myText = Text("Hello world", "arial");
-myText.setFontSize(20);
-myText.setPosition(0,0);
-myText.setAlign("left");
-
-Render.set(myText);
+# camera
+cam = Camera(world);
+Render.setCamera(cam);
+cameraBehaviour.setCamera(cam);
 
 #	--------------------------------------------------- *\
 #		Main loop

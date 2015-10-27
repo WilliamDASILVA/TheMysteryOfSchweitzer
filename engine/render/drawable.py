@@ -18,6 +18,7 @@ class Drawable:
 		self.type = None;
 		self.texture = None;
 		self.crop = None;
+		self.affectedByCamera = True;
 
 	#	--------------------------------------------------- *\
 	#		[function] getPosition()
@@ -135,3 +136,21 @@ class Drawable:
 	#	--------------------------------------------------- */
 	def getType(self):
 		return self.type;
+
+	#	--------------------------------------------------- *\
+	#		[function] getAffectedByCamera()
+	#
+	#		* Return if the element positionning is affected by the camera *
+	#		Return : true, false
+	#	--------------------------------------------------- */
+	def getAffectedByCamera(self):
+		return self.affectedByCamera;
+
+	#	--------------------------------------------------- *\
+	#		[function] setAffectedByCamera(value)
+	#
+	#		* Set if the element should be affected by the camera or not *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def setAffectedByCamera(self, value):
+		self.affectedByCamera = value;
