@@ -15,6 +15,7 @@ from engine.World import World;
 from engine.Camera import Camera;
 from engine import Global;
 from engine import Render;
+from engine import Data;
 
 from gameplay.behaviours import cameraBehaviour;
 
@@ -35,6 +36,10 @@ world = World();
 cam = Camera(world);
 Render.setCamera(cam);
 cameraBehaviour.setCamera(cam);
+
+# get saved data before game start
+Data.getSavedData();
+
 
 #	--------------------------------------------------- *\
 #		Main loop
