@@ -42,6 +42,7 @@ def onUpdate():
 		position = element.getPosition();
 		size = element.getSize();
 
+
 		if((position[0] >= -size[0] and position[0] <= Global.screenSize[0]) and (position[1] >= -size[1] and position[1] <= Global.screenSize[1])):
 			# opacity
 			texture.set_alpha(element.getOpacity() * 255);
@@ -50,6 +51,16 @@ def onUpdate():
 				texture = pygame.transform.scale(texture, (size[0],size[1]));
 			# rotation
 			texture = pygame.transform.rotate(texture, element.getRotation());
+		
+			renderPosition = [position[0], position[1]];
+
+			# text alignement
+			if element.getType() == "text":
+				align = element.getAlign();
+				if align == "center":
+					renderPosition[0] = position[0] - (size[0] /2);
+				elif align == "right":
+					renderPosition[0] = position[0] - size[0];
 
 			crop = None;
 			if(element.getType() == "sprite"):
@@ -63,7 +74,7 @@ def onUpdate():
 
 				Global.screen.blit(newTexture, position);
 			else:
-				Global.screen.blit(texture, position, crop);
+				Global.screen.blit(texture, renderPosition, crop);
 
 	# Call the functions
 	for function in functionsToCall:
