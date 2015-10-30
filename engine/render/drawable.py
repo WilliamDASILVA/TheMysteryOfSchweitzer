@@ -1,42 +1,26 @@
+from engine.Element import Element;
 #	--------------------------------------------------- *\
 #		[class] Drawable()
 #
 #		* A drawable element *
 #
 #	--------------------------------------------------- */
-class Drawable:
+class Drawable(Element):
 	#	--------------------------------------------------- *\
 	#		[function] __init__():
 	#
 	#		* Constructor *
 	#	--------------------------------------------------- */
 	def __init__(self):
-		self.position = [0,0];
-		self.size = [0,0];
+		super().__init__();
+
 		self.opacity = 1;
 		self.rotation = 0;
-		self.type = None;
+		self.eType = "drawable";
 		self.texture = None;
 		self.crop = None;
 		self.affectedByCamera = True;
 
-	#	--------------------------------------------------- *\
-	#		[function] getPosition()
-	#
-	#		* Return the position of the element *
-	#		Return : array
-	#	--------------------------------------------------- */
-	def getPosition(self):
-		return self.position;
-
-	#	--------------------------------------------------- *\
-	#		[function] setPosition(x, y)
-	#
-	#		* Set the position of an element *
-	#		Return : nil
-	#	--------------------------------------------------- */
-	def setPosition(self, x, y):
-		self.position = [x, y];
 
 	#	--------------------------------------------------- *\
 	#		[function] setOpacity(opacity)
@@ -55,24 +39,6 @@ class Drawable:
 	#	--------------------------------------------------- */
 	def getOpacity(self):
 		return self.opacity;
-
-	#	--------------------------------------------------- *\
-	#		[function] setSize(width, height)
-	#
-	#		* Set the size of an element *
-	#		Return : nil
-	#	--------------------------------------------------- */
-	def setSize(self, width, height):
-		self.size = [width, height];
-
-	#	--------------------------------------------------- *\
-	#		[function] getSize()
-	#
-	#		* Return the size of an element *
-	#		Return : array
-	#	--------------------------------------------------- */
-	def getSize(self):
-		return self.size;
 
 	#	--------------------------------------------------- *\
 	#		[function] setTexture(texture)
@@ -127,15 +93,6 @@ class Drawable:
 	#	--------------------------------------------------- */
 	def setCrop(self, x, y, width, height):
 		self.crop = (x, y, width, height);
-
-	#	--------------------------------------------------- *\
-	#		[function] getType()
-	#
-	#		* Return the type of the drawable *
-	#		Return : type
-	#	--------------------------------------------------- */
-	def getType(self):
-		return self.type;
 
 	#	--------------------------------------------------- *\
 	#		[function] getAffectedByCamera()

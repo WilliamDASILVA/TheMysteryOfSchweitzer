@@ -62,6 +62,10 @@ def onUpdate():
 
 	# Redraw all the elements
 	for element in elementsToDraw:
+		if element.getEType() != "drawable":
+			if element.getAssignedDrawable():
+				element = element.getAssignedDrawable();
+		
 		texture = element.getTexture();
 		position = element.getPosition();
 		size = element.getSize();
@@ -74,7 +78,7 @@ def onUpdate():
 			renderPosition[0] = position[0] + (sX/2) - camPosition[0];
 			renderPosition[1] = position[1] + (sY/2) - camPosition[1];
 
-
+		# element is on screen or not
 		if((position[0] >= -size[0] and position[0] <= Global.screenSize[0]) and (position[1] >= -size[1] and position[1] <= Global.screenSize[1])):
 			# opacity
 			texture.set_alpha(element.getOpacity() * 255);

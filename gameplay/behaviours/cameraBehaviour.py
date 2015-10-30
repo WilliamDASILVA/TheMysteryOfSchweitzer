@@ -1,11 +1,28 @@
 from engine import Global;
 from random import randint;
+from engine import Update;
 #	--------------------------------------------------- *\
 #		Camera behaviour
 #	--------------------------------------------------- */
 cameraToUse = None;
 shakeIntensity = 0;
 isCameraShaking = False;
+isCameraFixed = False;
+fixeTarget = None;
+
+
+#	--------------------------------------------------- *\
+#		[function] setCameraFixedTo(targetScene)
+#
+#		* Fix the camera mouvement on the scene *
+#		Return : nil
+#	--------------------------------------------------- */
+def setCameraFixedTo(targetScene):
+	global isCameraFixed;
+	global fixeTarget;
+	isCameraFixed = True;
+	fixeTarget = targetScene;
+
 
 #	--------------------------------------------------- *\
 #		[function] setCamera(camera)
@@ -46,10 +63,7 @@ def shakeCamera(intensity, time):
 #	--------------------------------------------------- */
 def camRandomPosition():
 	if isCameraShaking:
-		print("lol?");
 		randPosition = [randint(-5*shakeIntensity, 5*shakeIntensity), randint(-5*shakeIntensity, 5*shakeIntensity)];
-
-		print(randPosition);
 
 		cameraToUse.setPosition(savedPositionBeforeShaking[0] + randPosition[0], savedPositionBeforeShaking[1] +randPosition[1]);
 
@@ -63,3 +77,19 @@ def stopShaking():
 	global isCameraShaking;
 	isCameraShaking = False;
 	cameraToUse.setPosition(savedPositionBeforeShaking[0], savedPositionBeforeShaking[1]);
+
+#	--------------------------------------------------- *\
+#		[function] onUpdate()
+#
+#		* Camera behaviour on each frame *
+#		Return : nil
+#	--------------------------------------------------- */
+def cameraUpdate():
+	position = cameraToUse.getPosition();
+	if isCameraFixed:
+		if fixeTarget != None:
+			sceneSize = fixeTarget.getSize();
+			cameraToUse.setPosition(0, sceneSize[1]/2);
+
+
+Update.on(cameraUpdate);

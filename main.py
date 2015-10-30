@@ -13,9 +13,14 @@ import imp;
 from engine.render.text import Text;
 from engine.World import World;
 from engine.Camera import Camera;
+from engine import Update;
 from engine import Global;
 from engine import Render;
 from engine import Data;
+from engine import Input;
+from engine.render.image import Image;
+
+from gameplay.Scene import Scene;
 
 from gameplay.behaviours import cameraBehaviour;
 
@@ -41,6 +46,13 @@ cameraBehaviour.setCamera(cam);
 Data.getSavedData();
 
 
+myImage = Image("assets/scenetest.png");
+myScene = Scene(myImage);
+cameraBehaviour.setCameraFixedTo(myScene);
+
+Render.set(myScene);
+
+
 #	--------------------------------------------------- *\
 #		Main loop
 #	--------------------------------------------------- */
@@ -49,6 +61,23 @@ while Global.isApplicationRunning:
 	if(event.type == pygame.QUIT):
 		Global.isApplicationRunning = False;
 
+	# Keyboard events
+	if(event.type == pygame.KEYDOWN):
+		for e in Input.events:
+			for key in Input.events[e]['keys']:
+				if(key == event.key):
+					# call functions
+					for func in Input.events[e]['functions']:
+						func("down");
+	elif event.type == pygame.KEYUP:
+		for e in Input.events:
+			for key in Input.events[e]['keys']:
+				if(key == event.key):
+					# call functions
+					for func in Input.events[e]['functions']:
+						func("up");
+
 	Render.onUpdate();
+	Update.onUpdate();
 
 pygame.quit();
