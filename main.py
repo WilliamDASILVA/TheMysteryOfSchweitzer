@@ -21,8 +21,12 @@ from engine import Input;
 from engine.render.image import Image;
 
 from gameplay.Scene import Scene;
+from gameplay.Player import Player;
 
 from gameplay.behaviours import cameraBehaviour;
+from gameplay.behaviours import playerBehaviour;
+
+from engine.Input import Keyboard;
 
 #	--------------------------------------------------- *\
 #		Init the application
@@ -30,7 +34,6 @@ from gameplay.behaviours import cameraBehaviour;
 pygame.init();
 pygame.display.init();
 
-Global.isApplicationRunning = True;
 Global.screen = pygame.display.set_mode(Global.screenSize, pygame.HWSURFACE);
 pygame.display.set_caption(Global.windowTitle);
 
@@ -45,12 +48,18 @@ cameraBehaviour.setCamera(cam);
 # get saved data before game start
 Data.getSavedData();
 
+# player element
+player = Player();
 
-myImage = Image("assets/scenetest.png");
-myScene = Scene(myImage);
+myScene = Scene("scenetest");
+myScene.assign(player);
+player.setPosition(0, myScene.getGroundPosition(player));
 cameraBehaviour.setCameraFixedTo(myScene);
 
 Render.set(myScene);
+
+playerBehaviour.setPlayer(player);
+playerBehaviour.setActive();
 
 
 #	--------------------------------------------------- *\
