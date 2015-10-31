@@ -47,6 +47,7 @@ def on(functionToCall):
 def set(element):
 	elementsToDraw.append(element);
 
+
 #	--------------------------------------------------- *\
 #		[function] onUpdate()
 #
@@ -61,6 +62,7 @@ def onUpdate():
 	sY = Global.screenSize[1];
 
 	# Redraw all the elements
+	elementsToDraw.sort(key=lambda element: element.depth);
 	for element in elementsToDraw:
 		if element.getEType() != "drawable":
 			if element.getAssignedDrawable():
@@ -79,7 +81,7 @@ def onUpdate():
 			renderPosition[1] = position[1] + (sY/2) - camPosition[1];
 
 		# element is on screen or not
-		if((position[0] >= -size[0] and position[0] <= Global.screenSize[0]) and (position[1] >= -size[1] and position[1] <= Global.screenSize[1])):
+		if((renderPosition[0] >= -size[0] and renderPosition[0] <= Global.screenSize[0]) and (renderPosition[1] >= -size[1] and renderPosition[1] <= Global.screenSize[1])):
 			# opacity
 			texture.set_alpha(element.getOpacity() * 255);
 			# scale

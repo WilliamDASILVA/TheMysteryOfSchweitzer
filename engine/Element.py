@@ -14,6 +14,7 @@ class Element():
 		self.position = [0,0];
 		self.size = [0,0];
 		self.type = None;
+		self.depth = 0;
 		self.eType = "element";
 		self.assignedDrawable = None;
 
@@ -100,3 +101,21 @@ class Element():
 	#	--------------------------------------------------- */
 	def getAssignedDrawable(self):
 		return self.assignedDrawable;
+
+	#	--------------------------------------------------- *\
+	#		[function] setDepth(depth)
+	#
+	#		* Set the depth field of an element *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def setDepth(self, depth):
+		self.depth = depth;
+		
+	#	--------------------------------------------------- *\
+	#		[function] getDepth()
+	#
+	#		* Return the depth field of an element *
+	#		Return : depth
+	#	--------------------------------------------------- */
+	def getDepth(self):
+		return self.depth;

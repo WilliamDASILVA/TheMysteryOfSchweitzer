@@ -19,6 +19,7 @@ class Drawable(Element):
 		self.eType = "drawable";
 		self.texture = None;
 		self.crop = None;
+		self.depth = 0;
 		self.affectedByCamera = True;
 
 
