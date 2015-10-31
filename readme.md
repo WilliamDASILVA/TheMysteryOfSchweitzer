@@ -1,4 +1,4 @@
-#The Mistery of Schweitzer
+#The Mystery of Schweitzer
 
 ### Présentation
 Projet réalisé par [William DA SILVA](http://www.williamdasilva.fr) dans le cadre de l'épreuve Informatique et Sciences du Numérique ( [en savoir plus sur l'épreuve](http://eduscol.education.fr/cid60671/ressources-isn.html) ) pour le Baccalauréat de l'année 2015 / 2016.
