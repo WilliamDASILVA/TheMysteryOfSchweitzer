@@ -51,12 +51,20 @@ Data.getSavedData();
 # player element
 player = Player();
 
-myScene = Scene("scenetest");
+myScene = Scene("scene2");
 myScene.assign(player);
 player.setPosition(0, myScene.getGroundPosition(player));
-cameraBehaviour.setCameraFixedTo(myScene);
+cameraBehaviour.setCameraFixedTo(player);
 
 Render.set(myScene);
+
+def changeScene(state):
+	if state == "down":
+		myScene.destroy();
+
+changeSceneAction = Keyboard("action");
+changeSceneAction.on(changeScene);
+
 
 playerBehaviour.setPlayer(player);
 playerBehaviour.setActive();

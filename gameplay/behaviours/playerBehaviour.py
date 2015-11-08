@@ -19,7 +19,7 @@ def setActive():
 	rightKey = Keyboard("right");
 	rightKey.on(moveRight);
 
-	Global.setInterval(updatePosition, 50/player.getSpeed());
+	Update.on(lambda: updatePosition());
 	
 
 #	--------------------------------------------------- *\
@@ -88,11 +88,11 @@ def updatePosition():
 
 		canMoveLeft = True;
 		canMoveRight = True;
-		if position[0] < scenePosition[0]:
+		if position[0] <= scenePosition[0]:
 			canMoveLeft = False;
 			canMoveRight = True;
 
-		if position[0] + size[0] > scenePosition[0] + sceneSize[0] - size[0]:
+		if position[0] >= scenePosition[0] + sceneSize[0] - size[0]:
 			canMoveLeft = True;
 			canMoveRight = False;
 

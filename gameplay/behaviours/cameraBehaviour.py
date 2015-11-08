@@ -88,8 +88,9 @@ def cameraUpdate():
 	position = cameraToUse.getPosition();
 	if isCameraFixed:
 		if fixeTarget != None:
+			targetPosition = fixeTarget.getPosition();
 			sceneSize = fixeTarget.getSize();
-			cameraToUse.setPosition(0, sceneSize[1]/2);
+			cameraToUse.setPosition(targetPosition[0], targetPosition[1] - sceneSize[1] * 2);
 
 
 Update.on(cameraUpdate);
