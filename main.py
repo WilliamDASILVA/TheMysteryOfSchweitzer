@@ -53,8 +53,9 @@ player = Player();
 
 myScene = Scene("scene2");
 myScene.assign(player);
-player.setPosition(0, myScene.getGroundPosition(player));
+player.setPosition(600, myScene.getGroundPosition(player));
 cameraBehaviour.setCameraFixedTo(player);
+cameraBehaviour.setScene(myScene);
 
 Render.set(myScene);
 

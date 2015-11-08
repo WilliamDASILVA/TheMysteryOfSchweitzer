@@ -9,7 +9,7 @@ shakeIntensity = 0;
 isCameraShaking = False;
 isCameraFixed = False;
 fixeTarget = None;
-
+usedScene = None;
 
 #	--------------------------------------------------- *\
 #		[function] setCameraFixedTo(targetScene)
@@ -23,6 +23,15 @@ def setCameraFixedTo(targetScene):
 	isCameraFixed = True;
 	fixeTarget = targetScene;
 
+#	--------------------------------------------------- *\
+#		[function] setScene(scene)
+#
+#		* Specify a scene for the camera behaviour *
+#		Return : nil
+#	--------------------------------------------------- */
+def setScene(scene):
+	global usedScene;
+	usedScene = scene;
 
 #	--------------------------------------------------- *\
 #		[function] setCamera(camera)
@@ -84,13 +93,26 @@ def stopShaking():
 #		* Camera behaviour on each frame *
 #		Return : nil
 #	--------------------------------------------------- */
+appendToElement = True;
 def cameraUpdate():
+	global appendToElement;
 	position = cameraToUse.getPosition();
 	if isCameraFixed:
 		if fixeTarget != None:
 			targetPosition = fixeTarget.getPosition();
-			sceneSize = fixeTarget.getSize();
-			cameraToUse.setPosition(targetPosition[0], targetPosition[1] - sceneSize[1] * 2);
+			if appendToElement:
+				targetSize = fixeTarget.getSize();
+				cameraToUse.setPosition(targetPosition[0], targetPosition[1] - targetSize[1] * 2);
+
+			# check for scene boudaries
+			if usedScene:
+				sceneSize = usedScene.getSize();
+				sX = Global.screenSize[0];
+				if(targetPosition[0] <= sX/2) or (targetPosition[0] >= sceneSize[0] - (sX/2)):
+					appendToElement = False;
+				else:
+					appendToElement = True;
+
 
 
 Update.on(cameraUpdate);
