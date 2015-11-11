@@ -17,7 +17,7 @@ class Player(Element):
 		super().__init__();
 		self.setType("player");
 		self.assignedScene = None;
-		self.speed = 5; # 2 pixels per second
+		self.speed = 5;
 
 		# assign a drawable for test
 		drawable = Image("assets/characterTest.png");

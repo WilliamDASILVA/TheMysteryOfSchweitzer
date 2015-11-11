@@ -9,8 +9,6 @@
 #		Import modules
 #	--------------------------------------------------- */
 import pygame;
-import imp;
-from engine.render.text import Text;
 from engine.World import World;
 from engine.Camera import Camera;
 from engine import Update;
@@ -18,7 +16,6 @@ from engine import Global;
 from engine import Render;
 from engine import Data;
 from engine import Input;
-from engine.render.image import Image;
 
 from gameplay.Scene import Scene;
 from gameplay.Player import Player;
@@ -51,20 +48,25 @@ Data.getSavedData();
 # player element
 player = Player();
 
-myScene = Scene("scene2");
-myScene.assign(player);
-player.setPosition(600, myScene.getGroundPosition(player));
-cameraBehaviour.setCameraFixedTo(player);
-cameraBehaviour.setScene(myScene);
+# scene
+currentScene = None;
 
-Render.set(myScene);
+# load a scene for test
+currentScene = Scene("scene2");
+currentScene.assign(player);
+cameraBehaviour.setCameraFixedTo(player);
+cameraBehaviour.setScene(currentScene);
 
 def changeScene(state):
+	global currentScene;
 	if state == "down":
-		myScene.destroy();
+		currentScene.destroy();
+		currentScene = Scene("lol");
+		cameraBehaviour.setScene(currentScene);
+		currentScene.assign(player);
 
-changeSceneAction = Keyboard("action");
-changeSceneAction.on(changeScene);
+keyboardInput = Keyboard("action");
+keyboardInput.on(changeScene);
 
 
 playerBehaviour.setPlayer(player);

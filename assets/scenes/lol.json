@@ -1,0 +1,14 @@
+{
+	"name" : "lol",
+	"data" : [
+		["spawn", "", 500,0],
+		["door", "simple", 0,0],
+		["door", "simple", 250,0],
+		["door", "simple", 500,0],
+		["door", "simple", 750,0],
+		["door", "simple", 1000,0],
+		["door", "simple", 1250,0],
+		["door", "simple", 1500,0],
+		["door", "simple", 1750,0]
+	]
+}

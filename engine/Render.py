@@ -47,6 +47,15 @@ def on(functionToCall):
 def set(element):
 	elementsToDraw.append(element);
 
+#	--------------------------------------------------- *\
+#		[function] delete(element)
+#
+#		* Remove an element in the canvas *
+#		Return : nil
+#	--------------------------------------------------- */
+def delete(element):
+	elementsToDraw.remove(element);
+
 
 #	--------------------------------------------------- *\
 #		[function] onUpdate()

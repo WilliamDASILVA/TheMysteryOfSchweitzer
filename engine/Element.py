@@ -83,6 +83,8 @@ class Element():
 	#	--------------------------------------------------- */
 	def setSize(self, width, height):
 		self.size = [width, height];
+		if self.assignedDrawable:
+			self.assignedDrawable.setSize(width, height);
 
 	#	--------------------------------------------------- *\
 	#		[function] assignDrawable(drawable)
