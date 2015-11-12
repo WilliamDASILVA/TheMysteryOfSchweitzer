@@ -19,14 +19,17 @@ from engine import Input;
 
 from gameplay.Scene import Scene;
 from gameplay.Player import Player;
+from gameplay.Character import Character;
 
 from gameplay.behaviours import cameraBehaviour;
 from gameplay.behaviours import playerBehaviour;
 from gameplay.behaviours import actiondispatcherBehaviour;
+from gameplay.behaviours import characterBehaviour;
 
 from engine.Input import Keyboard;
 
 from gameplay.ActionReceiver import ActionReceiver;
+
 #	--------------------------------------------------- *\
 #		Init the application
 #	--------------------------------------------------- */
@@ -62,10 +65,13 @@ cameraBehaviour.setScene(currentScene);
 def changeScene(state):
 	global currentScene;
 	if state == "down":
-		currentScene.destroy();
-		currentScene = Scene("lol");
-		cameraBehaviour.setScene(currentScene);
-		currentScene.assign(player);
+
+		cameraBehaviour.shakeCamera(2, 2000);
+		# currentScene.destroy();
+		# currentScene = Scene("lol");
+		# cameraBehaviour.setScene(currentScene);
+		# currentScene.assign(player);
+
 actiondispatcherBehaviour.assignPlayer(player);
 
 myAction = ActionReceiver("test");
@@ -74,10 +80,18 @@ myAction.on(lambda: print("HELLOW WORLD"));
 keyboardInput = Keyboard("action");
 keyboardInput.on(changeScene);
 
+characterTest = Character();
+characterTest.setPosition(0, currentScene.getGroundPosition(characterTest));
+
+characterTest2 = Character("left", 10);
+characterTest2.setPosition(300, currentScene.getGroundPosition(characterTest2));
 
 playerBehaviour.setPlayer(player);
 playerBehaviour.setActive();
 actiondispatcherBehaviour.setActive(True);
+
+characterBehaviour.setScene(currentScene);
+characterBehaviour.setActive(True);
 
 
 #	--------------------------------------------------- *\
