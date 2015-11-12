@@ -54,6 +54,7 @@ savedPositionBeforeShaking = [0,0];
 def shakeCamera(intensity, time):
 	global isCameraShaking;
 	global shakeIntensity;
+	global savedPositionBeforeShaking;
 	if not isCameraShaking:
 		isCameraShaking = True;
 		shakeIntensity = intensity;
@@ -97,7 +98,7 @@ appendToElement = True;
 def cameraUpdate():
 	global appendToElement;
 	position = cameraToUse.getPosition();
-	if isCameraFixed:
+	if isCameraFixed and isCameraShaking == False:
 		if fixeTarget != None:
 			targetPosition = fixeTarget.getPosition();
 			if appendToElement:
