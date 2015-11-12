@@ -5,6 +5,7 @@ from gameplay.Ground import Ground;
 from engine import Render;
 from gameplay.Wall import Wall;
 from gameplay.Door import Door;
+from gameplay.ActionDispatcher import ActionDispatcher;
 #	--------------------------------------------------- *\
 #		[class] Scene()
 #
@@ -21,6 +22,7 @@ class Scene(Element):
 		super().__init__();
 		self.setType("scene");
 		self.assignedElements = [];
+		self.actions = [];
 
 		self.sceneData = None;
 		self.spawnPoint = None;
@@ -44,6 +46,8 @@ class Scene(Element):
 					element = Wall(category, position[0], position[1]);
 				elif _type == "door":
 					element = Door(category, position[0], position[1]);
+				elif _type == "action":
+					self.actions.append(ActionDispatcher(category, position[0], position[1]));
 				elif _type == "spawn":
 					self.spawnPoint = position;
 

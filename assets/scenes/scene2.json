@@ -1,14 +1,22 @@
 {
 	"name" : "scene_test",
 	"data" : [
+		["spawn", "", 500,0],
+		["action", "test", 1500,0],
+
 		["wall", "simple", 0,0],
-		["wall", "map", 250,0],
-		["spawn", "", 0,0],
-		["door", "simple", 500,0],
-		["door", "corridor", 750,0],
-		["wall", "blackcolumn", 1000,0],
-		["wall", "blackcolumn2", 1250,0],
-		["wall", "window", 1500,0],
-		["wall", "simple", 1750,0]
+		["wall", "simple", 250,0],
+		["wall", "simple", 500,0],
+		["wall", "window", 750,0],
+		["wall", "window", 1000,0],
+		["door", "corridor", 1250,0],
+		["wall", "map", 1500,0],
+		["wall", "blackcolumn2", 1750,0],
+		["door", "simple", 2000,0],
+		["wall", "window", 2250,0],
+		["wall", "window", 2500,0],
+		["wall", "window", 2750,0],
+		["door", "corridor", 3000,0],
+		["wall", "blackcolumn", 3250,0]
 	]
 }

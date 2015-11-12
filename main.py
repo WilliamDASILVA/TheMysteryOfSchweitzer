@@ -22,9 +22,11 @@ from gameplay.Player import Player;
 
 from gameplay.behaviours import cameraBehaviour;
 from gameplay.behaviours import playerBehaviour;
+from gameplay.behaviours import actiondispatcherBehaviour;
 
 from engine.Input import Keyboard;
 
+from gameplay.ActionReceiver import ActionReceiver;
 #	--------------------------------------------------- *\
 #		Init the application
 #	--------------------------------------------------- */
@@ -64,6 +66,10 @@ def changeScene(state):
 		currentScene = Scene("lol");
 		cameraBehaviour.setScene(currentScene);
 		currentScene.assign(player);
+actiondispatcherBehaviour.assignPlayer(player);
+
+myAction = ActionReceiver("test");
+myAction.on(lambda: print("HELLOW WORLD"));
 
 keyboardInput = Keyboard("action");
 keyboardInput.on(changeScene);
@@ -71,6 +77,7 @@ keyboardInput.on(changeScene);
 
 playerBehaviour.setPlayer(player);
 playerBehaviour.setActive();
+actiondispatcherBehaviour.setActive(True);
 
 
 #	--------------------------------------------------- *\
