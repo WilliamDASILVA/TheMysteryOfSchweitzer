@@ -1,7 +1,7 @@
 import pygame;
-from .. import Global;
+from engine import Global;
 from threading import Timer;
-from .image import Image;
+from engine.render.image import Image;
 #	--------------------------------------------------- *\
 #		[class] Sprite()
 #

@@ -113,12 +113,10 @@ def onUpdate():
 				currentImage = element.getCurrentImage();
 				frameSize = element.getFrameSize();
 				crop = (frameSize[0] * currentImage, 0, frameSize[0], frameSize[1]);
-				newTexture = pygame.Surface((frameSize[0], frameSize[1]), pygame.HWSURFACE);
-
+				newTexture = pygame.Surface((frameSize[0], frameSize[1]), pygame.SRCALPHA);
 				newTexture.blit(texture, (0,0), crop);
 				newTexture = pygame.transform.scale(newTexture, (size[0],size[1]));
-
-				Global.screen.blit(newTexture, position);
+				Global.screen.blit(newTexture, renderPosition);
 			else:
 				Global.screen.blit(texture, renderPosition, crop);
 

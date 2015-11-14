@@ -1,6 +1,7 @@
 from engine.Element import Element;
 from engine import Render;
 from engine.render.image import Image;
+from engine.render.sprite import Sprite;
 #	--------------------------------------------------- *\
 #		[class] Player()
 #
@@ -20,7 +21,7 @@ class Player(Element):
 		self.speed = 10;
 
 		# assign a drawable for test
-		drawable = Image("assets/characterTest.png");
+		drawable = Sprite("assets/spriteTest.png", 5);
 		drawable.setSize(64,64);
 		self.setDepth(100);
 		self.assignDrawable(drawable);

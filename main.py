@@ -29,6 +29,7 @@ from gameplay.behaviours import characterBehaviour;
 from engine.Input import Keyboard;
 
 from gameplay.ActionReceiver import ActionReceiver;
+from engine.render.image import Image;
 
 #	--------------------------------------------------- *\
 #		Init the application
@@ -85,6 +86,9 @@ characterTest.setPosition(0, currentScene.getGroundPosition(characterTest));
 
 characterTest2 = Character("left", 10);
 characterTest2.setPosition(300, currentScene.getGroundPosition(characterTest2));
+
+skinTest = Image("assets/characterTest.png");
+characterTest2.assignSkin(skinTest);
 
 playerBehaviour.setPlayer(player);
 playerBehaviour.setActive();

@@ -15,7 +15,7 @@ class Image(Drawable):
 	def __init__(self, imagePath):
 		super().__init__();
 		self.type = "image";
-		surface = pygame.image.load(imagePath).convert();
+		surface = pygame.image.load(imagePath).convert_alpha();
 		if surface:
 			self.setTexture(surface);
 			size = surface.get_size();

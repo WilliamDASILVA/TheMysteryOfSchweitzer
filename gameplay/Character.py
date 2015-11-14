@@ -26,11 +26,8 @@ class Character(Element):
 
         # character texture
         texture = Image("assets/dickbutt.png");
-        texture.setSize(50,50);
-        textureSize = texture.getSize();
-
-        self.assignDrawable(texture);
-        self.setSize(textureSize[0], textureSize[1]);
+        texture.setOpacity(0.5);
+        self.assignSkin(texture);
 
         characters.append(self);
 
@@ -71,3 +68,16 @@ class Character(Element):
     #    --------------------------------------------------- */
     def isWalking(self):
         return self.walking;
+
+    #    --------------------------------------------------- *\
+    #        [function] assignSkin(skin)
+    #
+    #        * Assign a skin to the character *
+    #        Return : nil
+    #    --------------------------------------------------- */
+    def assignSkin(self, skin):
+        skin.setSize(50,50);
+        skinSize = skin.getSize();
+
+        self.assignDrawable(skin);
+        self.setSize(skinSize[0], skinSize[1]);
