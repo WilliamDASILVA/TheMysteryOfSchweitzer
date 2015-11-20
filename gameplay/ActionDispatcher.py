@@ -19,6 +19,8 @@ class ActionDispatcher(Element):
 		self.setPosition(x, y);
 		self.setSize(250,400);
 
+		self.functionsToCallWhenZone = [];
+
 		Global.dispatchers.append(self);
 
 	#	--------------------------------------------------- *\
@@ -38,6 +40,9 @@ class ActionDispatcher(Element):
 	#	--------------------------------------------------- */
 	def setIsOnZone(self, value):
 		self.isOnZone = value;
+		if value:
+			for function in self.functionsToCallWhenZone:
+				function();
 
 	#	--------------------------------------------------- *\
 	#		[function] getIsOnZone()
@@ -56,3 +61,12 @@ class ActionDispatcher(Element):
 	#	--------------------------------------------------- */
 	def destroy(self):
 		Global.dispatchers.remove(self);
+
+	#	--------------------------------------------------- *\
+	#		[function] onZone(functionToCall)
+	#
+	#		* Call the function every time something is on the zone *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def onZone(self, functionToCall):
+		self.functionsToCallWhenZone.append(functionToCall);
