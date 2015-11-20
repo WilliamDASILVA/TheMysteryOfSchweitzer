@@ -6,7 +6,7 @@ Projet réalisé par [William DA SILVA](http://www.williamdasilva.fr) dans le ca
 ### Code-source
 Ce projet peut être réutilisé et distribué selon la licence ci-dessous.
 Aucune contribution ne sera prise (pull-requests). Ce dépôt sert uniquement de stockage pour le code-source.
-
+ 
 
 ### Licence
 Ce projet est sous licence MIT.
