@@ -29,10 +29,10 @@ class Character(Element):
 
         # assign a action dispatcher on the character
         self.uniqid = uuid.uuid4();
+        self.functionsToCallWhenAction = [];
         self.dispatcher = ActionDispatcher(self.uniqid, 0,0);
         self.receiver = ActionReceiver(self.uniqid);
-
-        self.receiver.on(lambda:print("LOOOL"));
+        self.receiver.on(self.callFunctions);
 
         # character texture
         texture = Image("assets/dickbutt.png");
@@ -42,6 +42,16 @@ class Character(Element):
         characters.append(self);
 
         Render.set(self);
+
+    #    --------------------------------------------------- *\
+    #        [function] callFunctions()
+    #
+    #        * Call all the functions when action event is fired *
+    #        Return : nil
+    #    --------------------------------------------------- */
+    def callFunctions(self):
+        for function in self.functionsToCallWhenAction:
+            function();
 
     #    --------------------------------------------------- *\
     #        [function] setPosition()
@@ -106,3 +116,12 @@ class Character(Element):
 
         self.assignDrawable(skin);
         self.setSize(skinSize[0], skinSize[1]);
+
+    #    --------------------------------------------------- *\
+    #        [function] onAction(functionToCall)
+    #
+    #        * Call this function when an action is made nearby the character *
+    #        Return : nil
+    #    --------------------------------------------------- */
+    def onAction(self, functionToCall):
+        self.functionsToCallWhenAction.append(functionToCall);
