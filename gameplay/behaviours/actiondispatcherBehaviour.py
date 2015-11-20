@@ -5,8 +5,6 @@ from engine.Input import Keyboard;
 
 usedPlayer = None;
 isActive = False;
-isOnZone = False;
-lastID = None;
 
 #	--------------------------------------------------- *\
 #		[function] assignPlayer(player)
@@ -39,20 +37,18 @@ def setActive(value):
 #		Return : nil
 #	--------------------------------------------------- */
 def actionKeyboard(state):
-	if state == "down" and isOnZone:
+	if state == "down":
 		for receiver in Global.receivers:
-			if receiver.getID() == lastID:
-				for function in receiver.getFunctions():
-					function();
+			for dispatcher in Global.dispatchers:
+				if receiver.getID() == dispatcher.getID() and dispatcher.getIsOnZone() == True:
+					for function in receiver.getFunctions():
+						function();
 
 
 #	--------------------------------------------------- *\
 #		On update
 #	--------------------------------------------------- */
 def checkForAction():
-	global isOnZone;
-	global lastID;
-	
 	if usedPlayer and isActive:
 		position = usedPlayer.getPosition();
 		for action in Global.dispatchers:
@@ -60,12 +56,9 @@ def checkForAction():
 			actionSize = action.getSize();
 
 			if (position[0] >= actionPosition[0]) and (position[0] <= actionPosition[0] + actionSize[0]):
-				isOnZone = True;
-				lastID = action.getID();
-
+				action.setIsOnZone(True);
 			else:
-				isOnZone = False;
-				lastID = None;
+				action.setIsOnZone(False);
 
 
 Update.on(checkForAction);

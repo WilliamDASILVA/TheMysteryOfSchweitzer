@@ -2,6 +2,9 @@
 from gameplay.behaviours.characterBehaviour import *;
 from engine.render.image import Image;
 from engine import Render;
+from gameplay.ActionDispatcher import ActionDispatcher;
+from gameplay.ActionReceiver import ActionReceiver;
+import uuid;
 #    --------------------------------------------------- *\
 #        [class] Character()
 #
@@ -24,6 +27,13 @@ class Character(Element):
         self.speed = speed;
         self.reachBorder = False;
 
+        # assign a action dispatcher on the character
+        self.uniqid = uuid.uuid4();
+        self.dispatcher = ActionDispatcher(self.uniqid, 0,0);
+        self.receiver = ActionReceiver(self.uniqid);
+
+        self.receiver.on(lambda:print("LOOOL"));
+
         # character texture
         texture = Image("assets/dickbutt.png");
         texture.setOpacity(0.5);
@@ -32,6 +42,18 @@ class Character(Element):
         characters.append(self);
 
         Render.set(self);
+
+    #    --------------------------------------------------- *\
+    #        [function] setPosition()
+    #
+    #        * Reassign the position fonction for the action dispatcher *
+    #        Return : nil
+    #    --------------------------------------------------- */
+    def setPosition(self, x, y):
+        super().setPosition(x, y);
+        if self.dispatcher != None:
+            size = self.dispatcher.getSize();
+            self.dispatcher.setPosition(x - size[0]/2, y);
 
     #    --------------------------------------------------- *\
     #        [function] setDirection(direction)
@@ -61,13 +83,16 @@ class Character(Element):
         return self.speed;
 
     #    --------------------------------------------------- *\
-    #        [function] isWalking()
+    #        [function] isWalking(value)
     #
     #        * Return if the character is walking or not *
     #        Return : boolean
     #    --------------------------------------------------- */
-    def isWalking(self):
-        return self.walking;
+    def isWalking(self, value = None):
+        if value != None:
+            self.walking = value;
+        else:
+            return self.walking;
 
     #    --------------------------------------------------- *\
     #        [function] assignSkin(skin)

@@ -14,6 +14,7 @@ class ActionReceiver():
 	def __init__(self, receiverID):
 		self.id = receiverID;
 		self.functionsToCall = [];
+		self.isOnZone = False;
 
 		Global.receivers.append(self);
 
@@ -25,6 +26,24 @@ class ActionReceiver():
 	#	--------------------------------------------------- */
 	def getID(self):
 		return self.id;
+
+	#	--------------------------------------------------- *\
+	#		[function] onZone(value)
+	#
+	#		* Set if is on zone *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def onZone(self, value):
+		self.isOnZone = value;
+
+	#	--------------------------------------------------- *\
+	#		[function] getOnZone()
+	#
+	#		* Return if is on zone *
+	#		Return : isOnZone
+	#	--------------------------------------------------- */
+	def getOnZone(self):
+		return self.isOnZone;
 
 	#	--------------------------------------------------- *\
 	#		[function] getFunctions()

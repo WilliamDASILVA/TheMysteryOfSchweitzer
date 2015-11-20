@@ -14,6 +14,7 @@ class ActionDispatcher(Element):
 	#	--------------------------------------------------- */
 	def __init__(self, dispatcherID, x, y):
 		super().__init__();
+		self.isOnZone = False;
 		self.id = dispatcherID;
 		self.setPosition(x, y);
 		self.setSize(250,400);
@@ -28,6 +29,24 @@ class ActionDispatcher(Element):
 	#	--------------------------------------------------- */
 	def getID(self):
 		return self.id;
+
+	#	--------------------------------------------------- *\
+	#		[function] setIsOnZone(value)
+	#
+	#		* Set if something is on zone *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def setIsOnZone(self, value):
+		self.isOnZone = value;
+
+	#	--------------------------------------------------- *\
+	#		[function] getIsOnZone()
+	#
+	#		* Return if something is on the zone *
+	#		Return : boolean
+	#	--------------------------------------------------- */
+	def getIsOnZone(self):
+		return self.isOnZone;
 
 	#	--------------------------------------------------- *\
 	#		[function] destroy()
