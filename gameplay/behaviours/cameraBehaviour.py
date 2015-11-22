@@ -43,6 +43,15 @@ def setCamera(camera):
 	global cameraToUse;
 	cameraToUse = camera;
 
+#	--------------------------------------------------- *\
+#		[function] getCamera()
+#
+#		* Return the camera element *
+#		Return : camera
+#	--------------------------------------------------- */
+def getCamera():
+	return cameraToUse;
+
 savedPositionBeforeShaking = [0,0];
 
 #	--------------------------------------------------- *\

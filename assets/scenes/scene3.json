@@ -1,0 +1,23 @@
+{
+	"name" : "Scene 3",
+	"data" : [
+		["spawn", "", 500,0],
+
+		["teleport", "scene2", 3250,0, 0,0],
+
+		["wall", "window", 0,0],
+		["wall", "window", 250,0],
+		["wall", "window", 500,0],
+		["wall", "window", 750,0],
+		["wall", "window", 1000,0],
+		["wall", "window", 1250,0],
+		["wall", "window", 1500,0],
+		["wall", "window", 1750,0],
+		["wall", "window", 2000,0],
+		["wall", "window", 2250,0],
+		["wall", "window", 2500,0],
+		["wall", "window", 2750,0],
+		["wall", "window", 3000,0],
+		["wall", "window", 3250,0]
+	]
+}

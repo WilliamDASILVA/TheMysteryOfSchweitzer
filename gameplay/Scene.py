@@ -5,6 +5,7 @@ from gameplay.Ground import Ground;
 from engine import Render;
 from gameplay.Wall import Wall;
 from gameplay.Door import Door;
+from gameplay.Teleport import Teleport;
 from gameplay.ActionDispatcher import ActionDispatcher;
 #	--------------------------------------------------- *\
 #		[class] Scene()
@@ -38,18 +39,24 @@ class Scene(Element):
 		for e in self.sceneData['data']:
 			if e:
 				_type = e[0];
-				category = e[1]
+				data = e[1]
 				position = [e[2], e[3]];
 
 				element = None;
 				if _type == "wall":
-					element = Wall(category, position[0], position[1]);
+					element = Wall(data, position[0], position[1]);
 				elif _type == "door":
-					element = Door(category, position[0], position[1]);
+					element = Door(data, position[0], position[1]);
 				elif _type == "action":
-					self.actions.append(ActionDispatcher(category, position[0], position[1]));
+					self.actions.append(ActionDispatcher(data, position[0], position[1]));
 				elif _type == "spawn":
 					self.spawnPoint = position;
+				elif _type == "teleport":
+					targetScene = data;
+					targetPosition = [e[4], e[5]];
+
+					self.actions.append(Teleport(position, targetScene, targetPosition));
+
 
 				if element:
 					self.append(element, position[0], position[1]);
@@ -121,6 +128,11 @@ class Scene(Element):
 	#	--------------------------------------------------- */
 	def destroy(self):
 		for element in self.getAssignedElements():
+			element.destroy();
 			Render.delete(element);
+		
+		for action in self.actions:
+			action.destroy();
 
+		self.actions = [];
 		self.assignedElements = [];

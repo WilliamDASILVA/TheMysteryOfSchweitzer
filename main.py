@@ -25,6 +25,7 @@ from gameplay.behaviours import cameraBehaviour;
 from gameplay.behaviours import playerBehaviour;
 from gameplay.behaviours import actiondispatcherBehaviour;
 from gameplay.behaviours import characterBehaviour;
+from gameplay.behaviours import sceneBehaviour;
 
 from engine.Input import Keyboard;
 
@@ -54,45 +55,29 @@ Data.getSavedData();
 # player element
 player = Player();
 
-# scene
-currentScene = None;
 
 # load a scene for test
-currentScene = Scene("scene2");
-currentScene.assign(player);
-cameraBehaviour.setCameraFixedTo(player);
-cameraBehaviour.setScene(currentScene);
-
-def changeScene(state):
-	global currentScene;
-	if state == "down":
-
-		cameraBehaviour.shakeCamera(2, 2000);
-		# currentScene.destroy();
-		# currentScene = Scene("lol");
-		# cameraBehaviour.setScene(currentScene);
-		# currentScene.assign(player);
-
-actiondispatcherBehaviour.assignPlayer(player);
+mainScene = Scene("scene2");
+sceneBehaviour.setPlayer(player);
+sceneBehaviour.setCurrentScene(mainScene);
 
 myAction = ActionReceiver("test");
 myAction.on(lambda: print("HELLOW WORLD"));
 
-keyboardInput = Keyboard("action");
-keyboardInput.on(changeScene);
-
 characterTest = Character();
-characterTest.setPosition(0, currentScene.getGroundPosition(characterTest));
+mainScene.append(characterTest, 0,0);
+characterTest.setPosition(0, mainScene.getGroundPosition(characterTest));
 characterTest.onAction(lambda: print("FUCK YEAHH"));
 
 characterTest2 = Character("left", 10);
-characterTest2.setPosition(300, currentScene.getGroundPosition(characterTest2));
+mainScene.append(characterTest2, 0,0);
+characterTest2.setPosition(300, mainScene.getGroundPosition(characterTest2));
 
+actiondispatcherBehaviour.assignPlayer(player);
 playerBehaviour.setPlayer(player);
 playerBehaviour.setActive();
 actiondispatcherBehaviour.setActive(True);
 
-characterBehaviour.setScene(currentScene);
 characterBehaviour.setActive(True);
 
 

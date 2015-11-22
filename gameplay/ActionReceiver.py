@@ -62,3 +62,12 @@ class ActionReceiver():
 	#	--------------------------------------------------- */
 	def on(self, functionToCall):
 		self.functionsToCall.append(functionToCall);
+
+	#	--------------------------------------------------- *\
+	#		[function] destroy()
+	#
+	#		* Destroy the dispatcher *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def destroy(self):
+		Global.receivers.remove(self);

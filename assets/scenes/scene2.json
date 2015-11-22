@@ -2,7 +2,8 @@
 	"name" : "scene_test",
 	"data" : [
 		["spawn", "", 500,0],
-		["action", "test", 1500,0],
+
+		["teleport", "scene3", 0,0, 0,0],
 
 		["wall", "simple", 0,0],
 		["wall", "simple", 250,0],

@@ -33,6 +33,15 @@ def setPlayer(playerElement):
 	player = playerElement;
 
 #	--------------------------------------------------- *\
+#		[function] getPlayer()
+#
+#		* Return the player element used *
+#		Return : player
+#	--------------------------------------------------- */
+def getPlayer():
+	return player;
+
+#	--------------------------------------------------- *\
 #		Input events
 #	--------------------------------------------------- */
 

@@ -121,3 +121,12 @@ class Element():
 	#	--------------------------------------------------- */
 	def getDepth(self):
 		return self.depth;
+
+	#	--------------------------------------------------- *\
+	#		[function] destroy()
+	#
+	#		* Destroy the element *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def destroy(self):
+		pass;

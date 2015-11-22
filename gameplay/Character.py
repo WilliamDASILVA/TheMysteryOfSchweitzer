@@ -125,3 +125,13 @@ class Character(Element):
     #    --------------------------------------------------- */
     def onAction(self, functionToCall):
         self.functionsToCallWhenAction.append(functionToCall);
+
+    #    --------------------------------------------------- *\
+    #        [function] destroy()
+    #
+    #        * Destroy the element *
+    #        Return : nil
+    #    --------------------------------------------------- */
+    def destroy(self):
+        self.dispatcher.destroy();
+        self.receiver.destroy();
