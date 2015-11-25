@@ -12,11 +12,12 @@ class Element():
 	#	--------------------------------------------------- */
 	def __init__(self):
 		self.position = [0,0];
+		self.offset = [0,0];
 		self.size = [0,0];
 		self.type = None;
 		self.depth = 0;
 		self.eType = "element";
-		self.assignedDrawable = None;
+		self.assignedDrawables = [];
 
 	#	--------------------------------------------------- *\
 	#		[function] getEType()
@@ -47,15 +48,24 @@ class Element():
 
 
 	#	--------------------------------------------------- *\
-	#		[function] setPosition()
+	#		[function] setPosition(x, y)
 	#
 	#		* Set the position of the element in the world *
 	#		Return : nil
 	#	--------------------------------------------------- */
 	def setPosition(self, x, y):
 		self.position = [x, y];
-		if self.assignedDrawable:
-			self.assignedDrawable.setPosition(x, y);
+		for drawable in self.assignedDrawables:
+			drawable.setPosition(x, y);
+
+	#	--------------------------------------------------- *\
+	#		[function] setOffsetPosition(x, y)
+	#
+	#		* Set the offset position *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def setOffsetPosition(self, x, y):
+		self.offset = [x, y];
 
 	#	--------------------------------------------------- *\
 	#		[function] getPosition()
@@ -65,6 +75,15 @@ class Element():
 	#	--------------------------------------------------- */
 	def getPosition(self):
 		return self.position;
+
+	#	--------------------------------------------------- *\
+	#		[function] getOffsetPosition()
+	#
+	#		* Return the offset position *
+	#		Return : offset
+	#	--------------------------------------------------- */
+	def getOffsetPosition(self):
+		return self.offset;
 
 	#	--------------------------------------------------- *\
 	#		[function] getSize()
@@ -83,8 +102,8 @@ class Element():
 	#	--------------------------------------------------- */
 	def setSize(self, width, height):
 		self.size = [width, height];
-		if self.assignedDrawable:
-			self.assignedDrawable.setSize(width, height);
+		for drawable in self.assignedDrawables:
+			drawable.setSize(width, height);
 
 	#	--------------------------------------------------- *\
 	#		[function] assignDrawable(drawable)
@@ -93,16 +112,16 @@ class Element():
 	#		Return : nil
 	#	--------------------------------------------------- */
 	def assignDrawable(self, drawable):
-		self.assignedDrawable = drawable;
+		self.assignedDrawables.append(drawable);
 
 	#	--------------------------------------------------- *\
-	#		[function] getAssignedDrawable()
+	#		[function] getAssignedDrawables()
 	#
-	#		* Return the assigned drawable *
+	#		* Return the assigned drawables *
 	#		Return : assignedDrawable
 	#	--------------------------------------------------- */
-	def getAssignedDrawable(self):
-		return self.assignedDrawable;
+	def getAssignedDrawables(self):
+		return self.assignedDrawables;
 
 	#	--------------------------------------------------- *\
 	#		[function] setDepth(depth)

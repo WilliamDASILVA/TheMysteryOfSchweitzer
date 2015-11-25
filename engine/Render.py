@@ -73,52 +73,59 @@ def onUpdate():
 	# Redraw all the elements
 	elementsToDraw.sort(key=lambda element: element.depth);
 	for element in elementsToDraw:
+
+		elements = [];
 		if element.getEType() != "drawable":
-			if element.getAssignedDrawable():
-				element = element.getAssignedDrawable();
-		
-		texture = element.getTexture();
-		position = element.getPosition();
-		size = element.getSize();
+			elements = element.getAssignedDrawables();
 
-		renderPosition = [position[0], position[1]];
+		if len(elements) == 0:
+			elements.append(element);
 
-		# camera calculations
-		if getCamera() != None and element.getAffectedByCamera() == True:
-			camPosition = cameraToUse.getPosition();
-			renderPosition[0] = position[0] + (sX/2) - camPosition[0];
-			renderPosition[1] = position[1] + (sY/2) - camPosition[1];
+		for e in elements:
+			texture = e.getTexture();
+			position = e.getPosition();
+			size = e.getSize();
+			offset = e.getOffsetPosition();
 
-		# element is on screen or not
-		if((renderPosition[0] >= -size[0] and renderPosition[0] <= Global.screenSize[0]) and (renderPosition[1] >= -size[1] and renderPosition[1] <= Global.screenSize[1])):
-			# opacity
-			texture.set_alpha(element.getOpacity() * 255);
-			# scale
-			if not element.getType() == "sprite":
-				texture = pygame.transform.scale(texture, (size[0],size[1]));
-			# rotation
-			texture = pygame.transform.rotate(texture, element.getRotation());
-		
+			renderPosition = [position[0] + offset[0], position[1] + offset[1]];
 
-			# text alignement
-			if element.getType() == "text":
-				align = element.getAlign();
-				if align == "center":
-					renderPosition[0] = position[0] - (size[0] /2);
-				elif align == "right":
-					renderPosition[0] = position[0] - size[0];
+			# camera calculations
+			if getCamera() != None and e.getAffectedByCamera() == True:
+				camPosition = cameraToUse.getPosition();
+				renderPosition[0] = position[0] + (sX/2) - camPosition[0] + offset[0];
+				renderPosition[1] = position[1] + (sY/2) - camPosition[1] + offset[1];
 
-			crop = None;
-			if(element.getType() == "sprite"):
-				currentImage = element.getCurrentImage();
-				frameSize = element.getFrameSize();
-				crop = (frameSize[0] * currentImage, 0, frameSize[0], frameSize[1]);
-				newTexture = pygame.Surface((frameSize[0], frameSize[1]), pygame.SRCALPHA);
-				newTexture.blit(texture, (0,0), crop);
-				newTexture = pygame.transform.scale(newTexture, (size[0],size[1]));
-				Global.screen.blit(newTexture, renderPosition);
-			else:
-				Global.screen.blit(texture, renderPosition, crop);
+			# element is on screen or not
+			if((renderPosition[0] >= -size[0] and renderPosition[0] <= Global.screenSize[0]) and (renderPosition[1] >= -size[1] and renderPosition[1] <= Global.screenSize[1])):
+				# opacity
+				texture = texture.convert_alpha();
+				texture.set_alpha(e.getOpacity() * 255);
+				# scale
+				if not e.getType() == "sprite":
+					texture = pygame.transform.scale(texture, (size[0],size[1]));
+				# rotation
+				texture = pygame.transform.rotate(texture, e.getRotation());
+			
+
+				# text alignement
+				if e.getType() == "text":
+					align = e.getAlign();
+					if align == "center":
+						renderPosition[0] = position[0] - (size[0] /2);
+					elif align == "right":
+						renderPosition[0] = position[0] - size[0];
+
+				crop = None;
+				if(e.getType() == "sprite"):
+					currentImage = e.getCurrentImage();
+					frameSize = e.getFrameSize();
+					crop = (frameSize[0] * currentImage, 0, frameSize[0], frameSize[1]);
+					newTexture = pygame.Surface((frameSize[0], frameSize[1]), pygame.SRCALPHA);
+					newTexture.blit(texture, (0,0), crop);
+					newTexture = pygame.transform.scale(newTexture, (size[0],size[1]));
+					Global.screen.blit(newTexture, renderPosition);
+				else:
+					Global.screen.blit(texture, renderPosition, crop);
 
 	# Call the functions
 	for function in functionsToCall:

@@ -46,7 +46,7 @@ class Scene(Element):
 				if _type == "wall":
 					element = Wall(data, position[0], position[1]);
 				elif _type == "door":
-					element = Door(data, position[0], position[1]);
+					element = Door(data, position[0], position[1], e[4]);
 				elif _type == "action":
 					self.actions.append(ActionDispatcher(data, position[0], position[1]));
 				elif _type == "spawn":
