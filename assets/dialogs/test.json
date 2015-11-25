@@ -1,0 +1,6 @@
+{
+	"1" : ["Salut, je vais t'apprendre a jouer...", "2"],
+	"2" : ["... pour commencer, clique sur la touche 'Action'...", "3"],
+	"3" : ["Bravo ! Tu sais maintenant passer des dialogues.", 4],
+	"4" : ["Allez on recommence :)", 1]
+}

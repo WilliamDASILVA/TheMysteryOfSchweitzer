@@ -32,6 +32,9 @@ from engine.Input import Keyboard;
 from gameplay.ActionReceiver import ActionReceiver;
 from engine.render.image import Image;
 
+from gameplay.Dialog import Dialog;
+from gameplay.behaviours import dialogBehaviour;
+
 #	--------------------------------------------------- *\
 #		Init the application
 #	--------------------------------------------------- */
@@ -79,6 +82,10 @@ playerBehaviour.setActive();
 actiondispatcherBehaviour.setActive(True);
 
 characterBehaviour.setActive(True);
+
+dialogTest = Dialog("test");
+dialogBehaviour.setActive(True);
+dialogBehaviour.setDialog(dialogTest);
 
 
 #	--------------------------------------------------- *\
