@@ -76,7 +76,7 @@ mainScene = Scene("scene2");
 sceneBehaviour.setPlayer(player);
 sceneBehaviour.setCurrentScene(mainScene);
 
-characterTest = Character();
+characterTest = Character(speed=10);
 mainScene.append(characterTest, 0,0);
 characterTest.setPosition(0, mainScene.getGroundPosition(characterTest));
 

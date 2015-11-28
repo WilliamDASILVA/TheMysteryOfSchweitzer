@@ -28,6 +28,7 @@ class Character(Element):
         self.speed = speed;
         self.reachBorder = False;
 
+        self.dialogStarted = False;
         self.assignedDialog = None;
 
         # assign a action dispatcher on the character
@@ -55,6 +56,11 @@ class Character(Element):
     def callFunctions(self):
         for function in self.functionsToCallWhenAction:
             function();
+
+        if self.assignedDialog != None and self.assignedDialog.getStarted() == False:
+            dialogBehaviour.setDialog(self.assignedDialog);
+            dialogBehaviour.start();
+            self.assignedDialog.setStarted(True);
 
     #    --------------------------------------------------- *\
     #        [function] setPosition()

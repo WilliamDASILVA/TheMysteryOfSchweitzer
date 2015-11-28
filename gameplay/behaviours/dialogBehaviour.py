@@ -2,6 +2,7 @@ from engine.Input import Keyboard;
 
 
 isActive = None;
+isDialogStarted = False;
 currentDialog = None;
 currentIndex = 1;
 nextIndex = None;
@@ -19,6 +20,32 @@ def setActive(value):
 	if value:
 		keyboardEvent = Keyboard("action");
 		keyboardEvent.on(keyboardInput);
+
+#	--------------------------------------------------- *\
+#		[function] start()
+#
+#		* Start the dialog *
+#		Return : nil
+#	--------------------------------------------------- */
+def start():
+	global isDialogStarted;
+	isDialogStarted = True;
+
+#	--------------------------------------------------- *\
+#		[function] stop()
+#
+#		* Stop the dialog *
+#		Return : nil
+#	--------------------------------------------------- */
+def stop():
+	global isDialogStarted;
+	global currentDialog;
+	global currentIndex;
+	
+	isDialogStarted = False;
+	currentDialog.setStarted(False);
+	currentDialog = None;
+	currentIndex = 1;
 
 #	--------------------------------------------------- *\
 #		[function] setDialog(dialog)
@@ -43,11 +70,14 @@ def setDialog(dialog):
 def keyboardInput(state):
 	global nextIndex;
 	global currentIndex;
-	if (state == "down") and isActive:
+	if (state == "down") and isActive and isDialogStarted:
 		# have dialog?
 		if currentDialog != None:
-			print(currentDialog.getText(currentIndex));
-
-			currentIndex = nextIndex;
-			nextIndex = currentDialog.getNext(currentIndex);
+			if currentIndex == "end":
+				# close dialog
+				stop();
+			else:
+				print(currentDialog.getText(currentIndex));
+				currentIndex = nextIndex;
+				nextIndex = currentDialog.getNext(currentIndex);
 

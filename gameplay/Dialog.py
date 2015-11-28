@@ -14,6 +14,7 @@ class Dialog():
 	def __init__(self, dialogTree):
 		self.file = dialogTree;
 		self.tree = None;
+		self.started = False;
 
 		# load the dialog tree
 		if self.file:
@@ -51,3 +52,21 @@ class Dialog():
 				return nextIndex;
 			else:
 				return "end";
+
+	#	--------------------------------------------------- *\
+	#		[function] setStarted(value)
+	#
+	#		* Set if the dialog is started or not *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def setStarted(self, value):
+		self.started = value;
+
+	#	--------------------------------------------------- *\
+	#		[function] getStarted()
+	#
+	#		* Return if the dialog is started or not *
+	#		Return : boolean
+	#	--------------------------------------------------- */
+	def getStarted(self):
+		return self.started;
