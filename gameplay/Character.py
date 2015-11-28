@@ -4,6 +4,7 @@ from engine.render.image import Image;
 from engine import Render;
 from gameplay.ActionDispatcher import ActionDispatcher;
 from gameplay.ActionReceiver import ActionReceiver;
+from gameplay.behaviours import dialogBehaviour;
 import uuid;
 #    --------------------------------------------------- *\
 #        [class] Character()
@@ -26,6 +27,8 @@ class Character(Element):
         self.walking = True;
         self.speed = speed;
         self.reachBorder = False;
+
+        self.assignedDialog = None;
 
         # assign a action dispatcher on the character
         self.uniqid = uuid.uuid4();
@@ -125,6 +128,15 @@ class Character(Element):
     #    --------------------------------------------------- */
     def onAction(self, functionToCall):
         self.functionsToCallWhenAction.append(functionToCall);
+
+    #    --------------------------------------------------- *\
+    #        [function] assignDialog(dialogToAssign)
+    #
+    #        * Assign a dialog to the character *
+    #        Return : nil
+    #    --------------------------------------------------- */
+    def assignDialog(self, dialog):
+        self.assignedDialog = dialog;
 
     #    --------------------------------------------------- *\
     #        [function] destroy()

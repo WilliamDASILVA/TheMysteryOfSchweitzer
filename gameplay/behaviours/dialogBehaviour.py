@@ -44,9 +44,10 @@ def keyboardInput(state):
 	global nextIndex;
 	global currentIndex;
 	if (state == "down") and isActive:
+		# have dialog?
+		if currentDialog != None:
+			print(currentDialog.getText(currentIndex));
 
-		print(currentDialog.getText(currentIndex));
-
-		currentIndex = nextIndex;
-		nextIndex = currentDialog.getNext(currentIndex);
+			currentIndex = nextIndex;
+			nextIndex = currentDialog.getNext(currentIndex);
 

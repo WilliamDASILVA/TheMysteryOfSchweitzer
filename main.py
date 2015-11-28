@@ -63,33 +63,31 @@ player = Player();
 # debug active
 Debug.setActive(True);
 
+# action dispatcher active
+actiondispatcherBehaviour.setActive(True);
+actiondispatcherBehaviour.assignPlayer(player);
+
+# player behaviours active
+playerBehaviour.setPlayer(player);
+playerBehaviour.setActive();
+
 # load a scene for test
 mainScene = Scene("scene2");
 sceneBehaviour.setPlayer(player);
 sceneBehaviour.setCurrentScene(mainScene);
 
-myAction = ActionReceiver("test");
-myAction.on(lambda: print("HELLOW WORLD"));
-
 characterTest = Character();
 mainScene.append(characterTest, 0,0);
 characterTest.setPosition(0, mainScene.getGroundPosition(characterTest));
-characterTest.onAction(lambda: print("FUCK YEAHH"));
 
-characterTest2 = Character("left", 10);
-mainScene.append(characterTest2, 0,0);
-characterTest2.setPosition(300, mainScene.getGroundPosition(characterTest2));
-
-actiondispatcherBehaviour.assignPlayer(player);
-playerBehaviour.setPlayer(player);
-playerBehaviour.setActive();
-actiondispatcherBehaviour.setActive(True);
-
+# character behaviour active
 characterBehaviour.setActive(True);
 
-dialogTest = Dialog("test");
+# enable dialog system
 dialogBehaviour.setActive(True);
-dialogBehaviour.setDialog(dialogTest);
+
+dialogTest = Dialog("test");
+characterTest.assignDialog(dialogTest);
 
 #	--------------------------------------------------- *\
 #		Main loop

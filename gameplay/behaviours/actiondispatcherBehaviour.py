@@ -29,6 +29,9 @@ def setActive(value):
 	keyboardEvent = Keyboard("action");
 	keyboardEvent.on(actionKeyboard);
 
+	if isActive:
+		Update.on(checkForAction);
+
 
 #	--------------------------------------------------- *\
 #		[function] actionKeyboard()
@@ -59,6 +62,3 @@ def checkForAction():
 				action.setIsOnZone(True);
 			else:
 				action.setIsOnZone(False);
-
-
-Update.on(checkForAction);

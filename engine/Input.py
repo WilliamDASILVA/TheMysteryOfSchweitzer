@@ -17,10 +17,14 @@ class Keyboard():
 		self.keys = Data.getData("k_" + keyName);
 
 		global events;
-		events[keyName] = {
-			"keys" : self.keys,
-			"functions" : []
-		};
+		# check if the keyname already exists, if not create a new one
+		if not self.name in events:
+			events[self.name] = {
+				"keys" : self.keys,
+				"functions" : []
+			};
+
+
 	#	--------------------------------------------------- *\
 	#		[function] on(functionToCall)
 	#
