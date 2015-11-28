@@ -35,6 +35,8 @@ from engine.render.image import Image;
 from gameplay.Dialog import Dialog;
 from gameplay.behaviours import dialogBehaviour;
 
+from engine import Debug
+
 #	--------------------------------------------------- *\
 #		Init the application
 #	--------------------------------------------------- */
@@ -58,6 +60,8 @@ Data.getSavedData();
 # player element
 player = Player();
 
+# debug active
+Debug.setActive(True);
 
 # load a scene for test
 mainScene = Scene("scene2");
@@ -86,7 +90,6 @@ characterBehaviour.setActive(True);
 dialogTest = Dialog("test");
 dialogBehaviour.setActive(True);
 dialogBehaviour.setDialog(dialogTest);
-
 
 #	--------------------------------------------------- *\
 #		Main loop
