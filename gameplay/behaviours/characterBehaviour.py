@@ -1,8 +1,11 @@
 ﻿from engine import Update;
+from engine import Global;
 
 isActive = False;
 usedScene = None;
 characters = [];
+
+scale = Global.scale;
 
 #    --------------------------------------------------- *\
 #        [function] setScene(scene)
@@ -40,9 +43,9 @@ def updatePositions():
             sceneSize = usedScene.getSize();
             if character.isWalking():
                 if direction == "left":
-                    character.setPosition(position[0] - character.getSpeed(), position[1]);
+                    character.setPosition(position[0] - (character.getSpeed() *scale), position[1]);
                 else:
-                    character.setPosition(position[0] + character.getSpeed(), position[1]);
+                    character.setPosition(position[0] + (character.getSpeed() *scale), position[1]);
 
                 # hitbox
                 if (position[0] > 0 and position[0] + size[0] < 100):

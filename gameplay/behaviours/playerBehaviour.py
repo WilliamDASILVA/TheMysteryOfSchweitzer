@@ -6,6 +6,9 @@ from engine import Global;
 #	--------------------------------------------------- */
 
 player = None;
+controlsEnabled = False;
+
+scale = Global.scale;
 
 #	--------------------------------------------------- *\
 #		[function] setActive()
@@ -19,8 +22,19 @@ def setActive():
 	rightKey = Keyboard("right");
 	rightKey.on(moveRight);
 
+	setControlsEnabled(True);
+
 	Update.on(lambda: updatePosition());
-	
+
+#	--------------------------------------------------- *\
+#		[function] setControlsEnabled(value)
+#
+#		* Set if the player controls should be enabled or not *
+#		Return : nil
+#	--------------------------------------------------- */
+def setControlsEnabled(value):
+	global controlsEnabled;
+	controlsEnabled = value;
 
 #	--------------------------------------------------- *\
 #		[function] setPlayer(playerElement)
@@ -57,11 +71,12 @@ movingDirection = None;
 def moveLeft(state):
 	global isMoving
 	global movingDirection;
-	if state == "down":
-		isMoving = True;
-		movingDirection = "left";
-	else:
-		isMoving = False;
+	if controlsEnabled:
+		if state == "down":
+			isMoving = True;
+			movingDirection = "left";
+		else:
+			isMoving = False;
 
 #	--------------------------------------------------- *\
 #		[function] moveRight()
@@ -72,11 +87,12 @@ def moveLeft(state):
 def moveRight(state):
 	global isMoving
 	global movingDirection;
-	if state == "down":
-		isMoving = True;
-		movingDirection = "right";
-	else:
-		isMoving = False;
+	if controlsEnabled:
+		if state == "down":
+			isMoving = True;
+			movingDirection = "right";
+		else:
+			isMoving = False;
 		
 #	--------------------------------------------------- *\
 #		[function] onUpdate()
@@ -106,8 +122,8 @@ def updatePosition():
 			canMoveRight = False;
 
 		if movingDirection == "left" and canMoveLeft:
-			k[0] -= player.getSpeed();
+			k[0] -= player.getSpeed() *scale;
 		elif movingDirection == "right" and canMoveRight:
-			k[0] += player.getSpeed();
+			k[0] += player.getSpeed() *scale;
 		
 		player.setPosition(k[0], position[1]);

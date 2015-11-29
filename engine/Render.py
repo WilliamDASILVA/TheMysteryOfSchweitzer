@@ -69,6 +69,7 @@ def onUpdate():
 
 	sX = Global.screenSize[0];
 	sY = Global.screenSize[1];
+	scale = Global.scale;
 
 	# Redraw all the elements
 	elementsToDraw.sort(key=lambda element: element.depth);
@@ -85,6 +86,7 @@ def onUpdate():
 			texture = e.getTexture();
 			position = e.getPosition();
 			size = e.getSize();
+			size = round(size[0] * scale), round(size[1] * scale);
 			offset = e.getOffsetPosition();
 
 			renderPosition = [position[0] + offset[0], position[1] + offset[1]];
@@ -96,13 +98,13 @@ def onUpdate():
 				renderPosition[1] = position[1] + (sY/2) - camPosition[1] + offset[1];
 
 			# element is on screen or not
-			if((renderPosition[0] >= -size[0] and renderPosition[0] <= Global.screenSize[0]) and (renderPosition[1] >= -size[1] and renderPosition[1] <= Global.screenSize[1])):
+			if((renderPosition[0] >= -size[0] and renderPosition[0] <= sX) and (renderPosition[1] >= -size[1] and renderPosition[1] <= sY)):
 				# opacity
 				texture = texture.convert_alpha();
 				texture.set_alpha(e.getOpacity() * 255);
 				# scale
 				if not e.getType() == "sprite":
-					texture = pygame.transform.scale(texture, (size[0],size[1]));
+					texture = pygame.transform.scale(texture, (size[0], size[1]));
 				# rotation
 				texture = pygame.transform.rotate(texture, e.getRotation());
 			

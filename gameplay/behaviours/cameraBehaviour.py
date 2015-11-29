@@ -107,18 +107,21 @@ appendToElement = True;
 def cameraUpdate():
 	global appendToElement;
 	position = cameraToUse.getPosition();
+	sX = Global.screenSize[0];
+	sY = Global.screenSize[1];
+	scale = Global.scale;
+
 	if isCameraFixed and isCameraShaking == False:
 		if fixeTarget != None:
 			targetPosition = fixeTarget.getPosition();
 			if appendToElement:
 				targetSize = fixeTarget.getSize();
-				cameraToUse.setPosition(targetPosition[0], targetPosition[1] - targetSize[1] * 2);
+				cameraToUse.setPosition(targetPosition[0] *scale, (targetPosition[1] - targetSize[1] * 2) *scale);
 
 			# check for scene boudaries
 			if usedScene:
 				sceneSize = usedScene.getSize();
-				sX = Global.screenSize[0];
-				if(targetPosition[0] <= sX/2) or (targetPosition[0] >= sceneSize[0] - (sX/2)):
+				if(targetPosition[0]*scale <= sX/2) or (targetPosition[0] *scale >= sceneSize[0] * scale - (sX/2)):
 					appendToElement = False;
 				else:
 					appendToElement = True;

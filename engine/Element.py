@@ -1,3 +1,4 @@
+from engine import Global;
 #	--------------------------------------------------- *\
 #		[class] Element()
 #
@@ -54,9 +55,10 @@ class Element():
 	#		Return : nil
 	#	--------------------------------------------------- */
 	def setPosition(self, x, y):
+		scale = Global.scale;
 		self.position = [x, y];
 		for drawable in self.assignedDrawables:
-			drawable.setPosition(x, y);
+			drawable.setPosition(x *scale, y *scale);
 
 	#	--------------------------------------------------- *\
 	#		[function] setOffsetPosition(x, y)
@@ -65,7 +67,8 @@ class Element():
 	#		Return : nil
 	#	--------------------------------------------------- */
 	def setOffsetPosition(self, x, y):
-		self.offset = [x, y];
+		scale = Global.scale;
+		self.offset = [x *scale, y *scale];
 
 	#	--------------------------------------------------- *\
 	#		[function] getPosition()

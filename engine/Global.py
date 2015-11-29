@@ -4,6 +4,8 @@ from threading import Timer;
 #	--------------------------------------------------- */
 isApplicationRunning = True;
 screenSize = width, height = 960, 540;
+ratio = screenSize[0]/screenSize[1];
+scale = (1/ratio)*(width/530);
 windowTitle = "The Mystery of Schweitzer";
 screen = None;
 

@@ -1,5 +1,5 @@
 from engine.Input import Keyboard;
-
+from gameplay.behaviours import playerBehaviour;
 
 isActive = None;
 isDialogStarted = False;
@@ -30,6 +30,7 @@ def setActive(value):
 def start():
 	global isDialogStarted;
 	isDialogStarted = True;
+	playerBehaviour.setControlsEnabled(False);
 
 #	--------------------------------------------------- *\
 #		[function] stop()
@@ -41,7 +42,8 @@ def stop():
 	global isDialogStarted;
 	global currentDialog;
 	global currentIndex;
-	
+
+	playerBehaviour.setControlsEnabled(True);
 	isDialogStarted = False;
 	currentDialog.setStarted(False);
 	currentDialog = None;
