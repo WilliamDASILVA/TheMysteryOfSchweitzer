@@ -59,8 +59,9 @@ class Character(Element):
 
         if self.assignedDialog != None and self.assignedDialog.getStarted() == False:
             dialogBehaviour.setDialog(self.assignedDialog);
-            dialogBehaviour.start();
+            self.assignedDialog.setCharacter(self);
             self.assignedDialog.setStarted(True);
+            dialogBehaviour.start();
 
     #    --------------------------------------------------- *\
     #        [function] setPosition()

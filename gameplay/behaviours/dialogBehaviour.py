@@ -21,6 +21,9 @@ def setActive(value):
 		keyboardEvent = Keyboard("action");
 		keyboardEvent.on(keyboardInput);
 
+		cancelEvent = Keyboard("escape");
+		cancelEvent.on(cancelInput);
+
 #	--------------------------------------------------- *\
 #		[function] start()
 #
@@ -31,6 +34,12 @@ def start():
 	global isDialogStarted;
 	isDialogStarted = True;
 	playerBehaviour.setControlsEnabled(False);
+	interface = currentDialog.getAssignedInterface();
+	interface.create();
+
+	characterElement = currentDialog.getCharacter();
+	characterElement.isWalking(False);
+
 
 #	--------------------------------------------------- *\
 #		[function] stop()
@@ -46,8 +55,15 @@ def stop():
 	playerBehaviour.setControlsEnabled(True);
 	isDialogStarted = False;
 	currentDialog.setStarted(False);
+	interface = currentDialog.getAssignedInterface();
+	interface.delete();
+
+	characterElement = currentDialog.getCharacter();
+	characterElement.isWalking(True);
+
 	currentDialog = None;
 	currentIndex = 1;
+
 
 #	--------------------------------------------------- *\
 #		[function] setDialog(dialog)
@@ -79,7 +95,19 @@ def keyboardInput(state):
 				# close dialog
 				stop();
 			else:
-				print(currentDialog.getText(currentIndex));
+				interface = currentDialog.getAssignedInterface();
+				interface.setEntry("author", currentDialog.getAuthor(currentIndex));
+				interface.setEntry("text", currentDialog.getText(currentIndex));
+
 				currentIndex = nextIndex;
 				nextIndex = currentDialog.getNext(currentIndex);
 
+#	--------------------------------------------------- *\
+#		[function] cancelInput()
+#
+#		* Cancel the dialog *
+#		Return : nil
+#	--------------------------------------------------- */
+def cancelInput(state):
+	if state == "down" and isActive and isDialogStarted:
+		stop();

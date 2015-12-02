@@ -15,6 +15,8 @@ class Dialog():
 		self.file = dialogTree;
 		self.tree = None;
 		self.started = False;
+		self.assignedInterface = None;
+		self.character = None;
 
 		# load the dialog tree
 		if self.file:
@@ -33,7 +35,7 @@ class Dialog():
 		if self.tree != None:
 			for k in self.tree:
 				if k == str(index):
-					return self.tree[k][0];
+					return self.tree[k][1];
 
 	#	--------------------------------------------------- *\
 	#		[function] getNext(index)
@@ -46,12 +48,24 @@ class Dialog():
 			nextIndex = None;
 			for k in self.tree:
 				if k == str(index):
-					nextIndex = self.tree[k][1]; 
+					nextIndex = self.tree[k][2]; 
 
 			if nextIndex != None:
 				return nextIndex;
 			else:
 				return "end";
+
+	#	--------------------------------------------------- *\
+	#		[function] getAuthor(ID)
+	#
+	#		* Return the author of the dialog from the id *
+	#		Return : author
+	#	--------------------------------------------------- */
+	def getAuthor(self, index):
+		if self.tree != None:
+			for k in self.tree:
+				if k == str(index):
+					return self.tree[str(index)][0];
 
 	#	--------------------------------------------------- *\
 	#		[function] setStarted(value)
@@ -70,3 +84,39 @@ class Dialog():
 	#	--------------------------------------------------- */
 	def getStarted(self):
 		return self.started;
+
+	#	--------------------------------------------------- *\
+	#		[function] assignInterface(interface)
+	#
+	#		* Assign a interface to the dialog *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def assignInterface(self, dialogInterface):
+		self.assignedInterface = dialogInterface;
+
+	#	--------------------------------------------------- *\
+	#		[function] getAssignedInterface()
+	#
+	#		* Returns the assigned interface *
+	#		Return : assignedInterface
+	#	--------------------------------------------------- */
+	def getAssignedInterface(self):
+		return self.assignedInterface;
+
+	#	--------------------------------------------------- *\
+	#		[function] setCharacter(character)
+	#
+	#		* Set a character *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def setCharacter(self, character):
+		self.character = character;
+
+	#	--------------------------------------------------- *\
+	#		[function] getCharacter()
+	#
+	#		* Get the assigned character *
+	#		Return : character
+	#	--------------------------------------------------- */
+	def getCharacter(self):
+		return self.character;

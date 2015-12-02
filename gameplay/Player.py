@@ -23,7 +23,7 @@ class Player(Element):
 		# assign a drawable for test
 		drawable = Sprite("assets/spriteTest.png", 5);
 		drawable.setSize(64,64);
-		self.setDepth(100);
+		self.setDepth(2);
 		self.assignDrawable(drawable);
 
 		self.setSize(64,64);

@@ -36,6 +36,7 @@ from gameplay.Dialog import Dialog;
 from gameplay.behaviours import dialogBehaviour;
 
 from engine import Debug
+from interfaces.DialogInterface import DialogInterface;
 
 #	--------------------------------------------------- *\
 #		Init the application
@@ -87,6 +88,9 @@ characterBehaviour.setActive(True);
 dialogBehaviour.setActive(True);
 
 dialogTest = Dialog("test");
+dialogInterface = DialogInterface();
+
+dialogTest.assignInterface(dialogInterface);
 characterTest.assignDialog(dialogTest);
 
 #	--------------------------------------------------- *\
