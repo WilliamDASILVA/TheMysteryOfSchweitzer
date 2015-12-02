@@ -93,9 +93,13 @@ characterTest.assignDialog(dialogTest);
 #		Main loop
 #	--------------------------------------------------- */
 while Global.isApplicationRunning:
+	Render.onUpdate();
+	Update.onUpdate();
+	
 	event = pygame.event.poll();
 	if(event.type == pygame.QUIT):
 		Global.isApplicationRunning = False;
+		pygame.quit();
 
 	# Keyboard events
 	if(event.type == pygame.KEYDOWN):
@@ -113,7 +117,4 @@ while Global.isApplicationRunning:
 					for func in Input.events[e]['functions']:
 						func("up");
 
-	Render.onUpdate();
-	Update.onUpdate();
 
-pygame.quit();
