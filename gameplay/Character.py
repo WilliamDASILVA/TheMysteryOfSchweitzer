@@ -1,4 +1,5 @@
-﻿from engine.Element import Element;
+﻿from engine import Global;
+from engine.Element import Element;
 from gameplay.behaviours.characterBehaviour import *;
 from engine.render.image import Image;
 from engine import Render;
@@ -58,10 +59,12 @@ class Character(Element):
             function();
 
         if self.assignedDialog != None and self.assignedDialog.getStarted() == False:
-            dialogBehaviour.setDialog(self.assignedDialog);
-            self.assignedDialog.setCharacter(self);
-            self.assignedDialog.setStarted(True);
-            dialogBehaviour.start();
+            if not Global.isInterfaceOpen():
+                dialogBehaviour.setDialog(self.assignedDialog);
+                self.assignedDialog.setCharacter(self);
+                self.assignedDialog.setStarted(True);
+                dialogBehaviour.start();
+                Global.setInterfaceOpen(True);
 
     #    --------------------------------------------------- *\
     #        [function] setPosition()

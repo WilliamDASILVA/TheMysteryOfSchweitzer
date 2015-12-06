@@ -1,3 +1,4 @@
+from engine import Render;
 #	--------------------------------------------------- *\
 #		[class] Interface()
 #
@@ -8,6 +9,7 @@ class Interface():
 	def __init__(self):
 		self.entries = {};
 		self.elements = {};
+
 
 	#	--------------------------------------------------- *\
 	#		[function] setEntry(entryName, value)
@@ -31,11 +33,23 @@ class Interface():
 	#	--------------------------------------------------- *\
 	#		[function] create()
 	#
-	#		* Create the interface *
+	#		* Create all the defined elements and append to the screen *
 	#		Return : nil
 	#	--------------------------------------------------- */
 	def create(self):
-		pass;
+		for element in self.elements:
+			self.elements[element].setAffectedByCamera(False);
+			Render.set(self.elements[element]);
+
+	#	--------------------------------------------------- *\
+	#		[function] delete()
+	#
+	#		* Destroy all the defined elements and remove from the screen *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def delete(self):
+		for element in self.elements:
+			Render.delete(self.elements[element]);
 
 	#	--------------------------------------------------- *\
 	#		[function] updateEntries()

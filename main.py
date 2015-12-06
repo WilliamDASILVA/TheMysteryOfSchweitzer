@@ -1,7 +1,7 @@
 #	--------------------------------------------------- *\
 #		Projet ISN - 2015 / 2016
 #		William DA SILVA
-#		Démarré le 6/10/15
+#		DÃƒÂ©marrÃƒÂ© le 6/10/15
 #		License MIT
 #
 #
@@ -20,12 +20,15 @@ from engine import Input;
 from gameplay.Scene import Scene;
 from gameplay.Player import Player;
 from gameplay.Character import Character;
+from gameplay.Inventory import Inventory;
+from gameplay.Item import Item;
 
 from gameplay.behaviours import cameraBehaviour;
 from gameplay.behaviours import playerBehaviour;
 from gameplay.behaviours import actiondispatcherBehaviour;
 from gameplay.behaviours import characterBehaviour;
 from gameplay.behaviours import sceneBehaviour;
+from gameplay.behaviours import inventoryBehaviour;
 
 from engine.Input import Keyboard;
 
@@ -37,6 +40,7 @@ from gameplay.behaviours import dialogBehaviour;
 
 from engine import Debug
 from interfaces.DialogInterface import DialogInterface;
+from interfaces.InventoryInterface import InventoryInterface;
 
 #	--------------------------------------------------- *\
 #		Init the application
@@ -60,6 +64,17 @@ Data.getSavedData();
 
 # player element
 player = Player();
+
+# player's inventory
+playerInventory = Inventory();
+inventoryBehaviour.setActive(True);
+inventoryBehaviour.setInventory(playerInventory);
+
+inventoryInterface = InventoryInterface();
+inventoryBehaviour.setInterface(inventoryInterface);
+
+playerInventory.addItem(Item("Test", "A test item", "assets/icons/inventory/test.png"));
+playerInventory.addItem(Item("Un autre truc", "Une description un peu plus longue..", "assets/icons/inventory/test.png"));
 
 # debug active
 Debug.setActive(True);
@@ -99,7 +114,7 @@ characterTest.assignDialog(dialogTest);
 while Global.isApplicationRunning:
 	Render.onUpdate();
 	Update.onUpdate();
-	
+
 	event = pygame.event.poll();
 	if(event.type == pygame.QUIT):
 		Global.isApplicationRunning = False;

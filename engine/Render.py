@@ -54,7 +54,8 @@ def set(element):
 #		Return : nil
 #	--------------------------------------------------- */
 def delete(element):
-	elementsToDraw.remove(element);
+	if element in elementsToDraw:
+		elementsToDraw.remove(element);
 
 
 #	--------------------------------------------------- *\

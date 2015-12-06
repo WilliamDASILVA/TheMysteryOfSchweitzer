@@ -12,6 +12,8 @@ screen = None;
 dispatchers = [];
 receivers = [];
 
+haveInterfaceOpen = False;
+
 
 #	--------------------------------------------------- *\
 #		[function] getPositionFromScreen(screenX, screenY)
@@ -67,3 +69,10 @@ def setTimeout(functionToCall, time):
 	t.start();
 
 	return t;
+
+def isInterfaceOpen():
+	return haveInterfaceOpen;
+
+def setInterfaceOpen(value):
+	global haveInterfaceOpen;
+	haveInterfaceOpen = value;

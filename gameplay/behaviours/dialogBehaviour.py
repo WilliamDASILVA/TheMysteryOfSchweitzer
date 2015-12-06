@@ -1,3 +1,4 @@
+from engine import Global;
 from engine.Input import Keyboard;
 from gameplay.behaviours import playerBehaviour;
 
@@ -63,6 +64,8 @@ def stop():
 
 	currentDialog = None;
 	currentIndex = 1;
+
+	Global.setInterfaceOpen(False);
 
 
 #	--------------------------------------------------- *\
