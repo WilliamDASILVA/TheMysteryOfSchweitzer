@@ -58,3 +58,22 @@ class Item():
 	#	--------------------------------------------------- */
 	def getIcon(self):
 		return self.icon;
+
+	#	--------------------------------------------------- *\
+	#		[function] onSelection(functionToCall)
+	#
+	#		* Function to throw when selection is made *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def onSelection(self, functionToCall):
+		self.functionsToCallWhenAction.append(functionToCall);
+
+	#	--------------------------------------------------- *\
+	#		[function] callFunction()
+	#
+	#		* Call the associated function *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def callFunction(self):
+		for function in self.functionsToCallWhenAction:
+			function();

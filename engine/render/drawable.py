@@ -21,7 +21,25 @@ class Drawable(Element):
 		self.crop = None;
 		self.depth = 0;
 		self.affectedByCamera = True;
+		self.visible = True;
 
+	#	--------------------------------------------------- *\
+	#		[function] setVisible(value)
+	#
+	#		* Set if the element should be visible *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def setVisible(self, value):
+		self.visible = value;
+
+	#	--------------------------------------------------- *\
+	#		[function] isVisible()
+	#
+	#		* Return if the element is visible or not *
+	#		Return : boolean
+	#	--------------------------------------------------- */
+	def isVisible(self):
+		return self.visible;
 
 	#	--------------------------------------------------- *\
 	#		[function] setOpacity(opacity)

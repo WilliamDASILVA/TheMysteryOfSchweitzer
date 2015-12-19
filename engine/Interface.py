@@ -28,7 +28,10 @@ class Interface():
 	#		Return : value
 	#	--------------------------------------------------- */
 	def getEntry(self, entryName):
-		return self.entries[entryName];
+		if entryName in self.entries:
+			return self.entries[entryName];
+		else:
+			return False;
 
 	#	--------------------------------------------------- *\
 	#		[function] create()
@@ -40,6 +43,15 @@ class Interface():
 		for element in self.elements:
 			self.elements[element].setAffectedByCamera(False);
 			Render.set(self.elements[element]);
+
+	#	--------------------------------------------------- *\
+	#		[function] update()
+	#
+	#		* Function called when data is updated *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def update(self):
+		pass;
 
 	#	--------------------------------------------------- *\
 	#		[function] delete()
@@ -58,6 +70,7 @@ class Interface():
 	#		Return : nil
 	#	--------------------------------------------------- */
 	def updateEntries(self):
+		self.update();
 		for entry in self.entries:
 			for element in self.elements:
 				if element == entry:

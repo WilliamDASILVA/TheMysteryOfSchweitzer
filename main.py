@@ -72,8 +72,14 @@ inventoryBehaviour.setInventory(playerInventory);
 
 inventoryInterface = InventoryInterface();
 inventoryBehaviour.setInterface(inventoryInterface);
+def saySomething():
+	print("HELLO WORLD!!!!");
 
-playerInventory.addItem(Item("Test", "A test item", "assets/icons/inventory/test.png"));
+myItem = Item("Test", "A test item", "assets/icons/inventory/test.png");
+myItem.onSelection(saySomething);
+
+
+playerInventory.addItem(myItem);
 playerInventory.addItem(Item("Un autre truc", "Une description un peu plus longue..", "assets/icons/inventory/test.png"));
 
 # debug active

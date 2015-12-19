@@ -54,32 +54,51 @@ class InventoryInterface(Interface):
 		sX = Global.screenSize[0];
 		sY = Global.screenSize[1];
 
+		self.setEntry("currentLine", 1);
 		items = self.getEntry("items");
+
 		i = 0;
 		for item in items:
 			name = item.getName();
 			description = item.getDescription();
 
 			self.elements[name+'face'] = item.getIcon();
-			self.elements[name+'face'].setPosition(0.12*sX, 0.4*sY + (0.075*sX) * i);
+			self.elements[name+'face'].setPosition(0.12*sX, 0.4*sY + (0.075*sX) * i + i);
 			self.elements[name+'face'].setSize(0.06*sX, 0.06*sX);
 			self.elements[name+'face'].setDepth(4);
 
 			self.elements[name+'darker'] = Image("assets/darker2.png");
-			self.elements[name+'darker'].setPosition(0.11*sX, 0.39*sY  + (0.075*sX) * i);
+			self.elements[name+'darker'].setPosition(0.11*sX, 0.39*sY  + (0.075*sX) * i + i);
 			self.elements[name+'darker'].setSize(0.78*sX, 0.075*sX);
 			self.elements[name+'darker'].setDepth(3);
+			self.elements[name+'darker'].setVisible(False);
 
 			self.elements[name+'name'] = Text(name, "arial");
 			self.elements[name+'name'].setFontSize(20);
 			self.elements[name+'name'].setDepth(4);
-			self.elements[name+'name'].setPosition(0.2*sX, 0.4*sY  + (0.075*sX) * i);
+			self.elements[name+'name'].setPosition(0.2*sX, 0.4*sY  + (0.075*sX) * i + i);
 
 			self.elements[name+'description'] = Text(description, "arial");
 			self.elements[name+'description'].setFontSize(15);
 			self.elements[name+'description'].setDepth(4);
-			self.elements[name+'description'].setPosition(0.2*sX, 0.45*sY  + (0.075*sX) * i);
+			self.elements[name+'description'].setPosition(0.2*sX, 0.45*sY  + (0.075*sX) * i + i);
 			i += 1;
 
+		self.setEntry("numberOfItems", i);
 
 		super().create();
+
+	def update(self):
+		items = self.getEntry("items");
+		currentItem = self.getEntry("currentLine");
+
+		i = 1;
+		for item in items:
+			name = item.getName();
+			if (name+'darker') in self.elements:
+				if currentItem == i:
+					self.elements[name+'darker'].setVisible(True);
+				else:
+					self.elements[name+'darker'].setVisible(False);
+					
+				i += 1;
