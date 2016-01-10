@@ -1,0 +1,11 @@
+{
+	"name" : "Salle 101",
+	"data" : [
+		["spawn", "", 250,0],
+
+		["teleport", "scene2", 0,0, 1250,0],
+
+		["wall", "class2", 0,0],
+		["wall", "class1", 250,0]
+	]
+}

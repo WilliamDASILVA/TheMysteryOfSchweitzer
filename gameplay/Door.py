@@ -1,3 +1,4 @@
+from gameplay.Teleport import Teleport;
 from engine.Element import Element;
 from engine.render.image import Image;
 from engine.render.text import Text;
@@ -18,7 +19,7 @@ class Door(Element):
 		self.category = category;
 		self.setPosition(x, y);
 		self.number = None;
-
+		
 		# add texture to the door
 		texture = Image("assets/elements/doors/" + category + ".png");
 		if texture:

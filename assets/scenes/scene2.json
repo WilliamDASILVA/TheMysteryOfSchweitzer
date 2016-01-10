@@ -3,14 +3,14 @@
 	"data" : [
 		["spawn", "", 500,0],
 
-		["teleport", "scene3", 0,0, 0,0],
+		["teleport", "rooms/101", 0,0, 0,0],
 
 		["wall", "simple", 0,0],
 		["wall", "simple", 250,0],
 		["wall", "simple", 500,0],
 		["wall", "window", 750,0],
 		["wall", "window", 1000,0],
-		["door", "corridor", 1250,0, "101"],
+		["door", "corridor", 1250,0, "101", "rooms/101"],
 		["wall", "map", 1500,0],
 		["wall", "blackcolumn2", 1750,0],
 		["door", "simple", 2000,0, "102"],

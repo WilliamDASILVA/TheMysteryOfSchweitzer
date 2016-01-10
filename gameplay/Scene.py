@@ -47,6 +47,9 @@ class Scene(Element):
 					element = Wall(data, position[0], position[1]);
 				elif _type == "door":
 					element = Door(data, position[0], position[1], e[4]);
+					if len(e) == 6:
+						self.actions.append(Teleport(position, e[5], [125, 0]));
+
 				elif _type == "action":
 					self.actions.append(ActionDispatcher(data, position[0], position[1]));
 				elif _type == "spawn":
