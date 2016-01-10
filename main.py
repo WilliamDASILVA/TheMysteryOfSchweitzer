@@ -114,6 +114,11 @@ dialogInterface = DialogInterface();
 dialogTest.assignInterface(dialogInterface);
 characterTest.assignDialog(dialogTest);
 
+# just testing some things
+# just testing some things
+# just testing some thingsthingsthings
+
+
 #	--------------------------------------------------- *\
 #		Main loop
 #	--------------------------------------------------- */
