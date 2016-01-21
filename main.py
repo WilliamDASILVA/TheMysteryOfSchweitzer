@@ -22,6 +22,7 @@ from gameplay.Player import Player;
 from gameplay.Character import Character;
 from gameplay.Inventory import Inventory;
 from gameplay.Item import Item;
+from gameplay.Background import Background;
 
 from gameplay.behaviours import cameraBehaviour;
 from gameplay.behaviours import playerBehaviour;
@@ -29,6 +30,7 @@ from gameplay.behaviours import actiondispatcherBehaviour;
 from gameplay.behaviours import characterBehaviour;
 from gameplay.behaviours import sceneBehaviour;
 from gameplay.behaviours import inventoryBehaviour;
+from gameplay.behaviours import backgroundBehaviour;
 
 from engine.Input import Keyboard;
 
@@ -108,16 +110,16 @@ characterBehaviour.setActive(True);
 # enable dialog system
 dialogBehaviour.setActive(True);
 
+# background behaviour
+backgroundBehaviour.setActive(True);
+backgroundBehaviour.setPlayer(player);
+
+
 dialogTest = Dialog("test");
 dialogInterface = DialogInterface();
 
 dialogTest.assignInterface(dialogInterface);
 characterTest.assignDialog(dialogTest);
-
-# just testing some things
-# just testing some things
-# just testing some thingsthingsthings
-
 
 #	--------------------------------------------------- *\
 #		Main loop

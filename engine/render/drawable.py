@@ -21,7 +21,26 @@ class Drawable(Element):
 		self.crop = None;
 		self.depth = 0;
 		self.affectedByCamera = True;
+		self.affectedByParent = True;
 		self.visible = True;
+
+	#	--------------------------------------------------- *\
+	#		[function] setAffectedByParent(value)
+	#
+	#		* Set if the element is affected by the parent *
+	#		Return : nil
+	#	--------------------------------------------------- */
+	def setAffectedByParent(self, value):
+		self.affectedByParent = value;
+
+	#	--------------------------------------------------- *\
+	#		[function] isAffectedByParent()
+	#
+	#		* Return if the element is affected by parent *
+	#		Return : boolean
+	#	--------------------------------------------------- */
+	def isAffectedByParent(self):
+		return self.affectedByParent;
 
 	#	--------------------------------------------------- *\
 	#		[function] setVisible(value)

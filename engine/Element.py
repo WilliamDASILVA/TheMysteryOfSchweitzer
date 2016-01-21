@@ -58,7 +58,8 @@ class Element():
 		scale = Global.scale;
 		self.position = [x, y];
 		for drawable in self.assignedDrawables:
-			drawable.setPosition(x *scale, y *scale);
+			if drawable.isAffectedByParent():
+				drawable.setPosition(x *scale, y *scale);
 
 	#	--------------------------------------------------- *\
 	#		[function] setOffsetPosition(x, y)

@@ -1,5 +1,6 @@
 {
 	"name" : "Salle 101",
+	"background" : "assets/elements/backgrounds/park1.png",
 	"data" : [
 		["spawn", "", 250,0],
 

@@ -4,9 +4,11 @@ from engine.render.image import Image;
 from gameplay.Ground import Ground;
 from engine import Render;
 from gameplay.Wall import Wall;
+from gameplay.Background import Background;
 from gameplay.Door import Door;
 from gameplay.Teleport import Teleport;
 from gameplay.ActionDispatcher import ActionDispatcher;
+from gameplay.behaviours import backgroundBehaviour;
 #	--------------------------------------------------- *\
 #		[class] Scene()
 #
@@ -70,6 +72,13 @@ class Scene(Element):
 
 		# getting scene size
 		self.setSize(250 * len(self.getAssignedElements()), 400);
+
+		# check if the scene have a background
+		if 'background' in self.sceneData:
+			element = Background(self.sceneData['background'], 250 * len(self.getAssignedElements()));
+			self.append(element, 0,0);
+
+			backgroundBehaviour.setBackground(element);
 
 
 		# set the position and size of the ground

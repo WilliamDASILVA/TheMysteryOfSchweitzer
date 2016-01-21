@@ -3,7 +3,7 @@
 	"data" : [
 		["spawn", "", 500,0],
 
-		["teleport", "rooms/101", 0,0, 0,0],
+		["teleport", "scene3", 0,0, 0,0],
 
 		["wall", "simple", 0,0],
 		["wall", "simple", 250,0],
