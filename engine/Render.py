@@ -8,6 +8,7 @@ from .render.image import Image;
 elementsToDraw = [];
 functionsToCall = [];
 cameraToUse = None;
+paused = False;
 
 #	--------------------------------------------------- *\
 #		[function] setCamera(camera)
@@ -19,6 +20,15 @@ def setCamera(camera):
 	global cameraToUse
 	cameraToUse = camera;
 
+#	--------------------------------------------------- *\
+#		[function] pause(value)
+#
+#		* Pause the render drawing *
+#		Return : nil
+#	--------------------------------------------------- */
+def pause(value):
+	global paused;
+	paused = value;
 
 #	--------------------------------------------------- *\
 #		[function] getCamera()
@@ -65,74 +75,88 @@ def delete(element):
 #		Return : nil
 #	--------------------------------------------------- */
 def onUpdate():
-	# Clean the screen
-	Global.screen.fill((0,0,0));
+	if not paused:
+		# Clean the screen
+		Global.screen.fill((0,0,0));
 
-	sX = Global.screenSize[0];
-	sY = Global.screenSize[1];
-	scale = Global.scale;
+		sX = Global.screenSize[0];
+		sY = Global.screenSize[1];
+		scale = Global.scale;
 
-	# Redraw all the elements
-	elementsToDraw.sort(key=lambda element: element.depth);
-	for element in elementsToDraw:
+		# Redraw all the elements
+		elementsToDraw.sort(key=lambda element: element.depth);
+		for element in elementsToDraw:
+			elements = [];
+			if element.getEType() != "drawable":
+				elements = element.getAssignedDrawables();
+				elements.sort(key=lambda element: element.depth);
 
-		elements = [];
-		if element.getEType() != "drawable":
-			elements = element.getAssignedDrawables();
+			if len(elements) == 0:
+				elements.append(element);
 
-		if len(elements) == 0:
-			elements.append(element);
+			for e in elements:
+				if e.isVisible():
+					texture = e.getTexture();
+					position = e.getPosition();
+					size = e.getSize();
+					size = round(size[0] * scale), round(size[1] * scale);
+					offset = e.getOffsetPosition();
 
-		for e in elements:
-			if e.isVisible():
-				texture = e.getTexture();
-				position = e.getPosition();
-				size = e.getSize();
-				size = round(size[0] * scale), round(size[1] * scale);
-				offset = e.getOffsetPosition();
+					renderPosition = [position[0] + offset[0], position[1] + offset[1]];
 
-				renderPosition = [position[0] + offset[0], position[1] + offset[1]];
+					# camera calculations
+					if getCamera() != None and e.getAffectedByCamera() == True:
+						camPosition = cameraToUse.getPosition();
+						renderPosition[0] = position[0] + (sX/2) - camPosition[0] + offset[0];
+						renderPosition[1] = position[1] + (sY/2) - camPosition[1] + offset[1];
 
-				# camera calculations
-				if getCamera() != None and e.getAffectedByCamera() == True:
-					camPosition = cameraToUse.getPosition();
-					renderPosition[0] = position[0] + (sX/2) - camPosition[0] + offset[0];
-					renderPosition[1] = position[1] + (sY/2) - camPosition[1] + offset[1];
+					# element is on screen or not
+					if((renderPosition[0] >= -size[0] and renderPosition[0] <= sX) and (renderPosition[1] >= -size[1] and renderPosition[1] <= sY)):
+						# scale
+						if not e.getType() == "sprite":
+							texture = pygame.transform.scale(texture, (size[0], size[1]));
+						# rotation
+						texture = pygame.transform.rotate(texture, e.getRotation());
+					
 
-				# element is on screen or not
-				if((renderPosition[0] >= -size[0] and renderPosition[0] <= sX) and (renderPosition[1] >= -size[1] and renderPosition[1] <= sY)):
-					# opacity
-					texture = texture.convert_alpha();
-					texture.set_alpha(e.getOpacity() * 255);
-					# scale
-					if not e.getType() == "sprite":
-						texture = pygame.transform.scale(texture, (size[0], size[1]));
-					# rotation
-					texture = pygame.transform.rotate(texture, e.getRotation());
-				
+						# text alignement
+						if e.getType() == "text":
+							align = e.getAlign();
+							if align == "center":
+								renderPosition[0] = position[0] - (size[0] /2);
+							elif align == "right":
+								renderPosition[0] = position[0] - size[0];
 
-					# text alignement
-					if e.getType() == "text":
-						align = e.getAlign();
-						if align == "center":
-							renderPosition[0] = position[0] - (size[0] /2);
-						elif align == "right":
-							renderPosition[0] = position[0] - size[0];
+						crop = None;
+						if(e.getType() == "sprite"):
+							currentImage = e.getCurrentImage();
+							frameSize = e.getFrameSize();
+							crop = (frameSize[0] * currentImage, 0, frameSize[0], frameSize[1]);
+							newTexture = pygame.Surface((frameSize[0], frameSize[1]), pygame.SRCALPHA);
+							newTexture.blit(texture, (0,0), crop);
+							newTexture = pygame.transform.scale(newTexture, (size[0],size[1]));
+							if(e.getOpacity() != 1):
+								blit_alpha(Global.screen, newTexture, renderPosition, e.getOpacity() * 255);
+							else:
+								Global.screen.blit(newTexture, renderPosition);
 
-					crop = None;
-					if(e.getType() == "sprite"):
-						currentImage = e.getCurrentImage();
-						frameSize = e.getFrameSize();
-						crop = (frameSize[0] * currentImage, 0, frameSize[0], frameSize[1]);
-						newTexture = pygame.Surface((frameSize[0], frameSize[1]), pygame.SRCALPHA);
-						newTexture.blit(texture, (0,0), crop);
-						newTexture = pygame.transform.scale(newTexture, (size[0],size[1]));
-						Global.screen.blit(newTexture, renderPosition);
-					else:
-						Global.screen.blit(texture, renderPosition, crop);
+						else:
+							if(e.getOpacity() != 1):
+								blit_alpha(Global.screen, texture, renderPosition, e.getOpacity() * 255);
+							else:
+								Global.screen.blit(texture, renderPosition, crop);
+								
+		# Call the functions
+		for function in functionsToCall:
+			function();
 
-	# Call the functions
-	for function in functionsToCall:
-		function();
+		pygame.display.flip();
 
-	pygame.display.flip();
+def blit_alpha(target, source, location, opacity):
+        x = location[0]
+        y = location[1]
+        temp = pygame.Surface((source.get_width(), source.get_height())).convert()
+        temp.blit(target, (-x, -y))
+        temp.blit(source, (0, 0))
+        temp.set_alpha(opacity)        
+        target.blit(temp, location)

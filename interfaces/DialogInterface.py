@@ -20,7 +20,6 @@ class DialogInterface(Interface):
 		super().__init__();
 		self.define();
 
-		print(self.elements);
 
 	#	--------------------------------------------------- *\
 	#		[function] define()

@@ -41,7 +41,6 @@ class Character(Element):
 
         # character texture
         texture = Image("assets/dickbutt.png");
-        texture.setOpacity(0.5);
         self.assignSkin(texture);
 
         characters.append(self);

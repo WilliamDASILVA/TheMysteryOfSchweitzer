@@ -31,7 +31,6 @@ class Teleport(Element):
 		texture.setSize(64,64);
 		texture.setPosition(position[0] + 93, position[1] + 336);
 		texture.setDepth(101);
-		texture.setOpacity(0.5);
 		self.assignDrawable(texture);
 
 		self.targetScene = targetScene;

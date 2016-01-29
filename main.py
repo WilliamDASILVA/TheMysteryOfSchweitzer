@@ -23,6 +23,7 @@ from gameplay.Character import Character;
 from gameplay.Inventory import Inventory;
 from gameplay.Item import Item;
 from gameplay.Background import Background;
+from gameplay.Pickup import Pickup;
 
 from gameplay.behaviours import cameraBehaviour;
 from gameplay.behaviours import playerBehaviour;
@@ -43,6 +44,7 @@ from gameplay.behaviours import dialogBehaviour;
 from engine import Debug
 from interfaces.DialogInterface import DialogInterface;
 from interfaces.InventoryInterface import InventoryInterface;
+from interfaces.TransitionInterface import TransitionInterface;
 
 #	--------------------------------------------------- *\
 #		Init the application
@@ -96,6 +98,8 @@ playerBehaviour.setPlayer(player);
 playerBehaviour.setActive();
 
 # load a scene for test
+sceneBehaviour.setActive();
+
 mainScene = Scene("scene2");
 sceneBehaviour.setPlayer(player);
 sceneBehaviour.setCurrentScene(mainScene);
@@ -114,12 +118,13 @@ dialogBehaviour.setActive(True);
 backgroundBehaviour.setActive(True);
 backgroundBehaviour.setPlayer(player);
 
-
+# load a test dialog
 dialogTest = Dialog("test");
 dialogInterface = DialogInterface();
 
 dialogTest.assignInterface(dialogInterface);
 characterTest.assignDialog(dialogTest);
+
 
 #	--------------------------------------------------- *\
 #		Main loop

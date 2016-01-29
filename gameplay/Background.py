@@ -21,7 +21,7 @@ class Background(Element):
 
         # texture
 		texture = Image(path);
-		texture.setDepth(-10);
+		texture.setDepth(0);
 
 		# size
 		self.assignDrawable(texture);
@@ -39,5 +39,3 @@ class Background(Element):
 		rightPanel.setOffsetPosition(sceneWidth,0);
 		rightPanel.setAffectedByParent(False);
 		self.assignDrawable(rightPanel);
-
-		Render.set(self);

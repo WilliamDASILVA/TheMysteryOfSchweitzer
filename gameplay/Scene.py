@@ -1,4 +1,5 @@
 import json;
+from engine import Global;
 from engine.Element import Element;
 from engine.render.image import Image;
 from gameplay.Ground import Ground;
@@ -7,8 +8,12 @@ from gameplay.Wall import Wall;
 from gameplay.Background import Background;
 from gameplay.Door import Door;
 from gameplay.Teleport import Teleport;
+from gameplay.Pickup import Pickup;
 from gameplay.ActionDispatcher import ActionDispatcher;
 from gameplay.behaviours import backgroundBehaviour;
+from interfaces.TransitionInterface import TransitionInterface;
+from gameplay.behaviours import sceneBehaviour;
+
 #	--------------------------------------------------- *\
 #		[class] Scene()
 #
@@ -47,6 +52,8 @@ class Scene(Element):
 				element = None;
 				if _type == "wall":
 					element = Wall(data, position[0], position[1]);
+				elif _type == "pickup":
+					element = Pickup(data, position[0], position[1]);
 				elif _type == "door":
 					element = Door(data, position[0], position[1], e[4]);
 					if len(e) == 6:
@@ -66,20 +73,14 @@ class Scene(Element):
 				if element:
 					self.append(element, position[0], position[1]);
 
-		# adding all the elements to the render
-		for e in self.getAssignedElements():
-			Render.set(e);
-
 		# getting scene size
 		self.setSize(250 * len(self.getAssignedElements()), 400);
 
 		# check if the scene have a background
 		if 'background' in self.sceneData:
 			element = Background(self.sceneData['background'], 250 * len(self.getAssignedElements()));
-			self.append(element, 0,0);
-
+			self.append(element, 250 * len(self.getAssignedElements()),0);
 			backgroundBehaviour.setBackground(element);
-
 
 		# set the position and size of the ground
 		self.groundElement = Ground();
@@ -87,6 +88,21 @@ class Scene(Element):
 		self.groundElement.setPosition(0, self.size[1]);
 
 		self.assignedPlayer = None;
+
+		Global.setTimeout(self.appendToRender, 500);
+
+	def appendToRender(self):
+		# adding all the elements to the render
+		k = 0;
+		for e in self.getAssignedElements():
+			k += 1;
+			Render.set(e);
+
+		if(k == len(self.getAssignedElements())):
+			Global.setTimeout(self.resetRender, 1000);
+
+	def resetRender(self):
+		sceneBehaviour.getTransition().changeFade();
 
 	#	--------------------------------------------------- *\
 	#		[function] getGroundPosition(playerElement)

@@ -1,9 +1,31 @@
 from gameplay.behaviours import cameraBehaviour;
 from gameplay.behaviours import characterBehaviour;
 import gameplay.Scene;
+from interfaces.TransitionInterface import TransitionInterface;
 
 usedScene = None;
 usedPlayer = None;
+transition = None;
+_name = None;
+_pos = None;
+
+#	--------------------------------------------------- *\
+#		[function] setActive()
+#
+#		Return : nil
+#	--------------------------------------------------- */
+def setActive():
+	global transition;
+	transition = TransitionInterface();
+
+#	--------------------------------------------------- *\
+#		[function] getTransition()
+#
+#		* Return the transition interface *
+#		Return : transition
+#	--------------------------------------------------- */
+def getTransition():
+	return transition;
 
 #	--------------------------------------------------- *\
 #		[function] setPlayer(player)
@@ -53,11 +75,16 @@ def getCurrentScene():
 #		Return : nil
 #	--------------------------------------------------- */
 def switchScene(sceneName, targetPosition):
+	global _name;
+	global _pos;
 	if usedScene != None:
-		usedScene.destroy();
+		transition.create();
+		transition.whenDone(transitionDone);
+		_name = sceneName;
+		_pos = targetPosition;
 
-		scene = gameplay.Scene.Scene(sceneName);
-		setCurrentScene(scene);
-		usedPlayer.setPosition(targetPosition[0], scene.getGroundPosition(usedPlayer));
-
-		print("SCENE DESTROYED");
+def transitionDone():
+	usedScene.destroy();
+	scene = gameplay.Scene.Scene(_name);
+	setCurrentScene(scene);
+	usedPlayer.setPosition(_pos[0], scene.getGroundPosition(usedPlayer));
