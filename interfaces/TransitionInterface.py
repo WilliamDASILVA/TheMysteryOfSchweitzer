@@ -43,32 +43,35 @@ class TransitionInterface(Interface):
 
 		self.fadeDone = False;
 		self.fadeDirection = "in";
-		self.fadeInterval = Global.setInterval(self.updateOpacity, 200);
+		self.fadeInterval = Global.setInterval(self.updateOpacity, 100);
 		self.functionToCallWhenDone = None;
 
 		super().create();
 
 	def updateOpacity(self):
 		if(self.fadeDone == False):
+			print(self.fadeDirection);
+			print(self.currentOpacity);
 			if(self.fadeDirection == "in"):
-				if(self.currentOpacity < 1):
-					self.currentOpacity += 0.05;
+				if(self.currentOpacity <= 1):
+					self.currentOpacity = self.currentOpacity + 0.05;
 				else:
 					self.currentOpacity = 1;
-					Global.destroyInterval(self.fadeInterval);
 					self.fadeDone = True;
+					Global.destroyInterval(self.fadeInterval);
 					if(self.functionToCallWhenDone != None):
 						self.functionToCallWhenDone();
 			else:
-				if(self.currentOpacity > 0):
-					self.currentOpacity -= 0.05;
+				if(self.currentOpacity >= 0):
+					self.currentOpacity = self.currentOpacity - 0.05;
 				else:
 					self.currentOpacity = 0;
 					Global.destroyInterval(self.fadeInterval);
 					self.fadeDone = True;
 					self.delete();
-					
-		self.elements['background'].setOpacity(round(self.currentOpacity));
+
+
+		self.elements['background'].setOpacity(self.currentOpacity);
 
 	def changeFade(self):
 		self.fadeDirection = "out";

@@ -5,8 +5,8 @@
 
 		["teleport", "scene3", 0,0, 0,0],
 
-		["character", "test", 0,0, "test", "right", 8],
-		["character", "test", 500,0, "test", "left", 15],
+		# type		 	# character type  	# pos	# assigned dialog   #mouvement direction	# mouvement speed
+		["character", 	"test", 			0,0, 	"test", 			"right", 				10],
 
 		["wall", "simple", 0,0],
 		["wall", "simple", 250,0],

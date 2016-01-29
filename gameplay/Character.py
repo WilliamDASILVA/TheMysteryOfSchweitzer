@@ -6,6 +6,7 @@ from engine import Render;
 from gameplay.ActionDispatcher import ActionDispatcher;
 from gameplay.ActionReceiver import ActionReceiver;
 from gameplay.behaviours import dialogBehaviour;
+from gameplay.behaviours import playerBehaviour;
 import uuid;
 #    --------------------------------------------------- *\
 #        [class] Character()
@@ -41,11 +42,12 @@ class Character(Element):
 
         # character texture
         texture = Image("assets/dickbutt.png");
+        self.setSize(64,64);
         self.assignSkin(texture);
 
-        characters.append(self);
+        self.setDepth(50);
 
-        Render.set(self);
+        characters.append(self);
 
     #    --------------------------------------------------- *\
     #        [function] callFunctions()
@@ -64,6 +66,7 @@ class Character(Element):
                 self.assignedDialog.setStarted(True);
                 dialogBehaviour.start();
                 Global.setInterfaceOpen(True);
+                playerBehaviour.enableMouvement(False);
 
     #    --------------------------------------------------- *\
     #        [function] setPosition()

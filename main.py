@@ -46,6 +46,8 @@ from interfaces.DialogInterface import DialogInterface;
 from interfaces.InventoryInterface import InventoryInterface;
 from interfaces.TransitionInterface import TransitionInterface;
 
+from gameplay import GlobalVars;
+
 #	--------------------------------------------------- *\
 #		Init the application
 #	--------------------------------------------------- */
@@ -54,6 +56,9 @@ pygame.display.init();
 
 Global.screen = pygame.display.set_mode(Global.screenSize, pygame.HWSURFACE);
 pygame.display.set_caption(Global.windowTitle);
+
+# global vars
+GlobalVars.setActive();
 
 # world
 world = World();
@@ -104,9 +109,9 @@ mainScene = Scene("scene2");
 sceneBehaviour.setPlayer(player);
 sceneBehaviour.setCurrentScene(mainScene);
 
-characterTest = Character(speed=10);
-mainScene.append(characterTest, 0,0);
-characterTest.setPosition(0, mainScene.getGroundPosition(characterTest));
+# characterTest = Character(speed=10);
+# mainScene.append(characterTest, 0,0);
+# characterTest.setPosition(0, mainScene.getGroundPosition(characterTest));
 
 # character behaviour active
 characterBehaviour.setActive(True);
@@ -119,11 +124,11 @@ backgroundBehaviour.setActive(True);
 backgroundBehaviour.setPlayer(player);
 
 # load a test dialog
-dialogTest = Dialog("test");
-dialogInterface = DialogInterface();
+# dialogTest = Dialog("test");
+# dialogInterface = DialogInterface();
 
-dialogTest.assignInterface(dialogInterface);
-characterTest.assignDialog(dialogTest);
+# dialogTest.assignInterface(dialogInterface);
+# characterTest.assignDialog(dialogTest);
 
 
 #	--------------------------------------------------- *\

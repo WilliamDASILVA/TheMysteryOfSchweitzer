@@ -36,8 +36,8 @@ class Teleport(Element):
 		self.targetScene = targetScene;
 		self.targetPosition = targetPosition;
 
+		Render.set(self);		
 
-		Render.set(texture);
 	
 	#	--------------------------------------------------- *\
 	#		[function] doTeleport()

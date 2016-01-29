@@ -13,6 +13,10 @@ from gameplay.ActionDispatcher import ActionDispatcher;
 from gameplay.behaviours import backgroundBehaviour;
 from interfaces.TransitionInterface import TransitionInterface;
 from gameplay.behaviours import sceneBehaviour;
+from gameplay.Character import Character;
+from gameplay.Dialog import Dialog;
+from gameplay import SceneData;
+from gameplay import GlobalVars;
 
 #	--------------------------------------------------- *\
 #		[class] Scene()
@@ -41,6 +45,15 @@ class Scene(Element):
 			if f:
 				self.sceneData = json.load(f);
 				f.close();
+		# getting scene size
+		self.setSize(0, 400);
+
+		# set the position and size of the ground
+		self.groundElement = Ground();
+		self.groundElement.setSize(self.size[0], self.size[0]);
+		self.groundElement.setPosition(0, self.size[1]);
+
+		mapSize = 0;
 
 		# generate the map
 		for e in self.sceneData['data']:
@@ -52,17 +65,27 @@ class Scene(Element):
 				element = None;
 				if _type == "wall":
 					element = Wall(data, position[0], position[1]);
+					mapSize += 1;
 				elif _type == "pickup":
 					element = Pickup(data, position[0], position[1]);
 				elif _type == "door":
 					element = Door(data, position[0], position[1], e[4]);
+					mapSize += 1;
 					if len(e) == 6:
 						self.actions.append(Teleport(position, e[5], [125, 0]));
-
 				elif _type == "action":
 					self.actions.append(ActionDispatcher(data, position[0], position[1]));
 				elif _type == "spawn":
 					self.spawnPoint = position;
+				elif _type == "character":
+					element = Character(e[5], e[6]);
+					position = [e[2], self.getGroundPosition(element)];
+					print("Character position:", position);
+
+					#print(GlobalVars.getVar("dialogInterface"));
+					# dialog = Dialog(e[4]);
+					# dialog.assignInterface(GlobalVars.getVar("dialogInterface"));
+					# element.assignDialog(dialog);
 				elif _type == "teleport":
 					targetScene = data;
 					targetPosition = [e[4], e[5]];
@@ -73,23 +96,19 @@ class Scene(Element):
 				if element:
 					self.append(element, position[0], position[1]);
 
-		# getting scene size
-		self.setSize(250 * len(self.getAssignedElements()), 400);
+		self.setSize(250 * mapSize, 400);
 
 		# check if the scene have a background
 		if 'background' in self.sceneData:
-			element = Background(self.sceneData['background'], 250 * len(self.getAssignedElements()));
-			self.append(element, 250 * len(self.getAssignedElements()),0);
+			element = Background(self.sceneData['background'], 250 * mapSize);
+			self.append(element, 250 * mapSize,0);
 			backgroundBehaviour.setBackground(element);
 
-		# set the position and size of the ground
-		self.groundElement = Ground();
-		self.groundElement.setSize(self.size[0], self.size[0]);
-		self.groundElement.setPosition(0, self.size[1]);
 
 		self.assignedPlayer = None;
 
 		Global.setTimeout(self.appendToRender, 500);
+
 
 	def appendToRender(self):
 		# adding all the elements to the render
