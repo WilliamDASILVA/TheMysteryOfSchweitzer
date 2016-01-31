@@ -55,6 +55,17 @@ def setPlayer(playerElement):
 def getPlayer():
 	return player;
 
+mouvementEnabled = True;
+#	--------------------------------------------------- *\
+#		[function] enableMouvement(value)
+#
+#		* Set the mouvement of the player or not *
+#		Return : nil
+#	--------------------------------------------------- */
+def enableMouvement(value):
+	global mouvementEnabled;
+	mouvementEnabled = value;
+
 #	--------------------------------------------------- *\
 #		Input events
 #	--------------------------------------------------- */
@@ -102,28 +113,29 @@ def moveRight(state):
 #	--------------------------------------------------- */
 def updatePosition():
 	if isMoving and player:
-		position = player.getPosition();
-		size = player.getSize();
-		k = [position[0], position[1]];
+		if mouvementEnabled:
+			position = player.getPosition();
+			size = player.getSize();
+			k = [position[0], position[1]];
 
-		# check for collisions with the scene before
-		scene = player.getAssignedScene();
-		sceneSize = scene.getSize();
-		scenePosition = scene.getPosition();
+			# check for collisions with the scene before
+			scene = player.getAssignedScene();
+			sceneSize = scene.getSize();
+			scenePosition = scene.getPosition();
 
-		canMoveLeft = True;
-		canMoveRight = True;
-		if position[0] <= scenePosition[0]:
-			canMoveLeft = False;
-			canMoveRight = True;
-
-		if position[0] >= scenePosition[0] + sceneSize[0] - size[0]:
 			canMoveLeft = True;
-			canMoveRight = False;
+			canMoveRight = True;
+			if position[0] <= scenePosition[0]:
+				canMoveLeft = False;
+				canMoveRight = True;
 
-		if movingDirection == "left" and canMoveLeft:
-			k[0] -= player.getSpeed() *scale;
-		elif movingDirection == "right" and canMoveRight:
-			k[0] += player.getSpeed() *scale;
-		
-		player.setPosition(k[0], position[1]);
+			if position[0] >= scenePosition[0] + sceneSize[0] - size[0]:
+				canMoveLeft = True;
+				canMoveRight = False;
+
+			if movingDirection == "left" and canMoveLeft:
+				k[0] -= player.getSpeed() *scale;
+			elif movingDirection == "right" and canMoveRight:
+				k[0] += player.getSpeed() *scale;
+			
+			player.setPosition(k[0], position[1]);

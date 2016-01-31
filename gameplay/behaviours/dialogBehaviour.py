@@ -54,6 +54,7 @@ def stop():
 	global currentIndex;
 
 	playerBehaviour.setControlsEnabled(True);
+	playerBehaviour.enableMouvement(True);
 	isDialogStarted = False;
 	currentDialog.setStarted(False);
 	interface = currentDialog.getAssignedInterface();
