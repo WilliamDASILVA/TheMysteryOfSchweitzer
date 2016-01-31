@@ -56,8 +56,6 @@ class TransitionInterface(Interface):
 
 	def updateOpacity(self):
 		if(self.fadeDone == False):
-			print(self.fadeDirection);
-			print(self.currentOpacity);
 			if(self.fadeDirection == "in"):
 				if(self.currentOpacity <= 1):
 					self.currentOpacity = self.currentOpacity + 0.05;

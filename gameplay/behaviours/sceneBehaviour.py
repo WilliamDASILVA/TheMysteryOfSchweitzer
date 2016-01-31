@@ -1,7 +1,7 @@
 from gameplay.behaviours import cameraBehaviour;
 from gameplay.behaviours import characterBehaviour;
 import gameplay.Scene;
-from interfaces.TransitionInterface import TransitionInterface;
+from gameplay import GlobalVars;
 
 usedScene = None;
 usedPlayer = None;
@@ -16,7 +16,7 @@ _pos = None;
 #	--------------------------------------------------- */
 def setActive():
 	global transition;
-	transition = TransitionInterface();
+	transition = GlobalVars.getVar("transitionInterface");
 
 #	--------------------------------------------------- *\
 #		[function] getTransition()

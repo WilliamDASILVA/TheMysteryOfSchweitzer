@@ -1,11 +1,13 @@
 from interfaces.DialogInterface import DialogInterface;
+from interfaces.TransitionInterface import TransitionInterface;
 
 gv = None;
 
 def setActive():
 	global gv;
 	gv = {
-		"dialogInterface" : DialogInterface()
+		"dialogInterface" : DialogInterface(),
+		"transitionInterface" : TransitionInterface()
 	};
 	
 
