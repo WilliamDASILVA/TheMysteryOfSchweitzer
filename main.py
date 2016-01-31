@@ -109,10 +109,6 @@ mainScene = Scene("scene2");
 sceneBehaviour.setPlayer(player);
 sceneBehaviour.setCurrentScene(mainScene);
 
-# characterTest = Character(speed=10);
-# mainScene.append(characterTest, 0,0);
-# characterTest.setPosition(0, mainScene.getGroundPosition(characterTest));
-
 # character behaviour active
 characterBehaviour.setActive(True);
 
@@ -122,14 +118,6 @@ dialogBehaviour.setActive(True);
 # background behaviour
 backgroundBehaviour.setActive(True);
 backgroundBehaviour.setPlayer(player);
-
-# load a test dialog
-# dialogTest = Dialog("test");
-# dialogInterface = DialogInterface();
-
-# dialogTest.assignInterface(dialogInterface);
-# characterTest.assignDialog(dialogTest);
-
 
 #	--------------------------------------------------- *\
 #		Main loop

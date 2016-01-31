@@ -51,6 +51,7 @@ def setCurrentScene(scene):
 	cameraBehaviour.setCameraFixedTo(usedPlayer);
 	cameraBehaviour.setScene(usedScene);
 	characterBehaviour.setScene(usedScene);
+	transition.setEntry("title", usedScene.getName());
 
 	cam = cameraBehaviour.getCamera();
 

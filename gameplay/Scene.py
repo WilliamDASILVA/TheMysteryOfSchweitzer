@@ -11,7 +11,6 @@ from gameplay.Teleport import Teleport;
 from gameplay.Pickup import Pickup;
 from gameplay.ActionDispatcher import ActionDispatcher;
 from gameplay.behaviours import backgroundBehaviour;
-from interfaces.TransitionInterface import TransitionInterface;
 from gameplay.behaviours import sceneBehaviour;
 from gameplay.Character import Character;
 from gameplay.Dialog import Dialog;
@@ -38,6 +37,7 @@ class Scene(Element):
 
 		self.sceneData = None;
 		self.spawnPoint = None;
+		self.name = "";
 
 		# load a scene
 		if sceneToLoad:
@@ -54,6 +54,8 @@ class Scene(Element):
 		self.groundElement.setPosition(0, self.size[1]);
 
 		mapSize = 0;
+
+		self.name = self.sceneData['name'];
 
 		# generate the map
 		for e in self.sceneData['data']:
@@ -132,6 +134,15 @@ class Scene(Element):
 		playerSize = playerElement.getSize();
 
 		return size[1] - playerSize[1];
+
+	#	--------------------------------------------------- *\
+	#		[function] getName()
+	#
+	#		* Return the scene's name *
+	#		Return : name
+	#	--------------------------------------------------- */
+	def getName(self):
+		return self.name;
 
 	#	--------------------------------------------------- *\
 	#		[function] assign()

@@ -30,14 +30,13 @@ class Teleport(Element):
 		texture = Image("assets/icons/door.png");
 		texture.setSize(64,64);
 		texture.setPosition(position[0] + 93, position[1] + 336);
+		texture.setDepth(101);
 		self.assignDrawable(texture);
 
 		self.targetScene = targetScene;
 		self.targetPosition = targetPosition;
-
-		self.setDepth(101);
-
-		Render.set(self);		
+		
+		Render.set(texture);		
 
 	
 	#	--------------------------------------------------- *\

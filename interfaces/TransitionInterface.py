@@ -34,6 +34,12 @@ class TransitionInterface(Interface):
 		self.elements['background'].setSize(sX, sY);
 		self.elements['background'].setDepth(200);
 		self.elements['background'].setOpacity(0);
+
+		self.elements['title'] = Text("A test title", "arial");
+		self.elements['title'].setPosition(0.1*sX,0.75*sY);
+		self.elements['title'].setColor((255,255,255));
+		self.elements['title'].setFontSize(40);
+		self.elements['title'].setDepth(201);
 	
 	def create(self):
 		sX = Global.screenSize[0];
@@ -72,6 +78,7 @@ class TransitionInterface(Interface):
 
 
 		self.elements['background'].setOpacity(self.currentOpacity);
+		self.elements['title'].setOpacity(self.currentOpacity);
 
 	def changeFade(self):
 		self.fadeDirection = "out";
@@ -82,4 +89,5 @@ class TransitionInterface(Interface):
 		self.functionToCallWhenDone = functionToCall;
 
 	def update(self):
-		pass;		
+		title = self.getEntry("title");
+		self.elements['title'].setValue(title);
