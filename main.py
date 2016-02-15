@@ -16,6 +16,7 @@ from engine import Global;
 from engine import Render;
 from engine import Data;
 from engine import Input;
+from engine import Cinematic;
 
 from gameplay.Scene import Scene;
 from gameplay.Player import Player;
@@ -45,6 +46,8 @@ from engine import Debug
 from interfaces.DialogInterface import DialogInterface;
 from interfaces.InventoryInterface import InventoryInterface;
 from interfaces.TransitionInterface import TransitionInterface;
+
+from cinematics.TestCinematic import TestCinematic;
 
 from gameplay import GlobalVars;
 
@@ -118,6 +121,9 @@ dialogBehaviour.setActive(True);
 # background behaviour
 backgroundBehaviour.setActive(True);
 backgroundBehaviour.setPlayer(player);
+
+testCinema = TestCinematic();
+testCinema.start();
 
 #	--------------------------------------------------- *\
 #		Main loop
