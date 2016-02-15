@@ -6,7 +6,9 @@
 
 		["teleport", "scene2", 0,0, 1250,0],
 
-		["wall", "class2", 0,0],
-		["wall", "class1", 250,0]
+		["wall", "class4", 0,0],
+		["wall", "class3", 250,0],
+		["wall", "class2", 500,0],
+		["wall", "class1", 750,0]
 	]
 }

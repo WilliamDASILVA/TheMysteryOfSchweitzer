@@ -1,6 +1,6 @@
 {
-	"1" : ["Surveillant", "Salut, je vais t'apprendre a jouer...", "2"],
-	"2" : ["William", "... pour commencer, clique sur la touche 'Action'...", "3"],
-	"3" : ["Surveillant", "Bravo ! Tu sais maintenant passer des dialogues.", "4"],
-	"4" : ["William", "Allez on recommence :)", "end"]
+	"1" : ["Proviseur", "Salut, je vais t'apprendre a jouer...", "2", "muller"],
+	"2" : ["William", "... pour commencer, clique sur la touche 'Action'...", "3", "william"],
+	"3" : ["Proviseur", "Bravo ! Tu sais maintenant passer des dialogues.", "4", "muller"],
+	"4" : ["William", "Allez on recommence :)", "end", "william"]
 }

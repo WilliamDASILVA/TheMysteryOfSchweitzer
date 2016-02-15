@@ -28,7 +28,7 @@ class InventoryInterface(Interface):
 		self.elements['background'].setPosition(0.1*sX, 0.3*sY);
 		self.elements['background'].setSize(0.8*sX, 0.7*sY);
 
-		self.elements['face'] = Image("assets/characterTest.png");
+		self.elements['face'] = Image("assets/characters/william/face.png");
 		self.elements['face'].setPosition(0.1*sX, 0.15*sY);
 		self.elements['face'].setSize(0.1*sX, 0.1*sX);
 

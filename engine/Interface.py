@@ -1,4 +1,6 @@
+from engine.render.image import Image;
 from engine import Render;
+from engine import Global;
 #	--------------------------------------------------- *\
 #		[class] Interface()
 #
@@ -78,3 +80,15 @@ class Interface():
 					if type == "text":
 						text = self.getEntry(element);
 						self.elements[element].setValue(text);
+					elif type == "image":
+
+						sX = Global.screenSize[0];
+						sY = Global.screenSize[1];
+						character = self.getEntry(element);
+						print("Current character speaking:", character);
+
+						tempImage = Image("assets/characters/" + character + "/face.png");
+						tempImage.setPosition(0.05*sX, 0.78 * sY);
+						tempImage.setSize(0.1*sX, 0.1*sX);
+						tempImage.setDepth(5);
+						self.elements[element] = tempImage;

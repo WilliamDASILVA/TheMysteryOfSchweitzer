@@ -100,8 +100,11 @@ def keyboardInput(state):
 				stop();
 			else:
 				interface = currentDialog.getAssignedInterface();
+				interface.delete();
 				interface.setEntry("author", currentDialog.getAuthor(currentIndex));
 				interface.setEntry("text", currentDialog.getText(currentIndex));
+				interface.setEntry("characterFace", currentDialog.getFace(currentIndex));
+				interface.create();
 
 				currentIndex = nextIndex;
 				nextIndex = currentDialog.getNext(currentIndex);

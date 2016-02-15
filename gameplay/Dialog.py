@@ -38,6 +38,18 @@ class Dialog():
 					return self.tree[k][1];
 
 	#	--------------------------------------------------- *\
+	#		[function] getFace(index)
+	#
+	#		* Return the face from the index *
+	#		Return : face
+	#	--------------------------------------------------- */
+	def getFace(self, index):
+		if self.tree != None:
+			for k in self.tree:
+				if k == str(index):
+					return self.tree[k][3];
+
+	#	--------------------------------------------------- *\
 	#		[function] getNext(index)
 	#
 	#		* Return the next text from index *

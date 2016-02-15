@@ -5,19 +5,20 @@
 
 		["teleport", "scene2", 3250,0, 0,0],
 
-		["wall", "window", 0,0],
-		["wall", "window", 250,0],
-		["wall", "window", 500,0],
+		["wall", "simple", 0,0],
+		["wall", "blackcolumn", 250,0],
+		["wall", "simple", 500,0],
 		["wall", "window", 750,0],
 		["wall", "window", 1000,0],
-		["wall", "window", 1250,0],
-		["wall", "window", 1500,0],
-		["wall", "window", 1750,0],
+		["door", "corridor_pink", 1250,0, "201", "rooms/101"],
+		["wall", "blackcolumn", 1500,0],
+		["door", "corridor_pink", 1750,0, "", "rooms/101"],
 		["wall", "window", 2000,0],
 		["wall", "window", 2250,0],
 		["wall", "window", 2500,0],
-		["wall", "window", 2750,0],
+		["door", "corridor_pink", 2750,0, "202", "rooms/101"],
 		["wall", "window", 3000,0],
-		["wall", "window", 3250,0]
+		["wall", "window", 3250,0],
+		["wall", "window", 3500,0]
 	]
 }
