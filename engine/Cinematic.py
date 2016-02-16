@@ -96,14 +96,15 @@ class Cinematic():
 					self.fade['element'].setOpacity(opacity + 0.02);
 				else:
 					# finis
-					self.fadeDone();
+					self.fadeInEnd();
 					self.fade['element'].setOpacity(1);
 					
 			else:
+				opacity = self.fade['element'].getOpacity();
 				if opacity > 0:
-					opacity = self.fade['element'].getOpacity();
 					self.fade['element'].setOpacity(opacity - 0.02);
 				else:
+					self.fadeOutEnd();
 					self.fade['element'].setOpacity(0);
 
 	def fadeInEnd(self):
@@ -115,6 +116,7 @@ class Cinematic():
 
 	def fadeOutEnd(self):
 		self.fade['running'] = False;
+		Render.delete(self.fade['element']);
 		self.fade['interval'].destroy();
 		
 		for element in self.dynamicElements:
@@ -129,7 +131,7 @@ class Cinematic():
 			## doing fade in
 			Render.set(self.fade['element']);
 			self.fade['running'] = True;
-			self.fade['interval'] = Interval(self.updateFade, 50);
+			self.fade['interval'] = Global.Interval(self.updateFade, 50);
 			self.fade['direction'] = "in";
 
 		else:
@@ -147,6 +149,6 @@ class Cinematic():
 			## doing fade in
 			Render.set(self.fade['element']);
 			self.fade['running'] = True;
-			self.fade['interval'] = Interval(self.updateFade, 50);
+			self.fade['interval'] = Global.Interval(self.updateFade, 50);
 			self.fade['direction'] = "out";
 
