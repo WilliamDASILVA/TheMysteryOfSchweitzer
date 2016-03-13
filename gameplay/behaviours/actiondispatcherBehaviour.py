@@ -1,6 +1,7 @@
 from engine import Global;
 from engine import Update;
 from engine.Input import Keyboard;
+from gameplay.behaviours import playerBehaviour;
 
 
 usedPlayer = None;
@@ -40,12 +41,14 @@ def setActive(value):
 #		Return : nil
 #	--------------------------------------------------- */
 def actionKeyboard(state):
-	if state == "down":
-		for receiver in Global.receivers:
-			for dispatcher in Global.dispatchers:
-				if receiver.getID() == dispatcher.getID() and dispatcher.getIsOnZone() == True:
-					for function in receiver.getFunctions():
-						function();
+	controlsEnabled = playerBehaviour.isControlsEnabled();
+	if controlsEnabled:
+		if state == "down":
+			for receiver in Global.receivers:
+				for dispatcher in Global.dispatchers:
+					if receiver.getID() == dispatcher.getID() and dispatcher.getIsOnZone() == True:
+						for function in receiver.getFunctions():
+							function();
 
 
 #	--------------------------------------------------- *\

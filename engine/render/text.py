@@ -1,5 +1,5 @@
 import pygame;
-from .drawable import Drawable;
+from engine.render.drawable import Drawable;
 #	--------------------------------------------------- *\
 #		[class] Text()
 #

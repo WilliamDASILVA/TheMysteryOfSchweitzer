@@ -36,6 +36,9 @@ def setControlsEnabled(value):
 	global controlsEnabled;
 	controlsEnabled = value;
 
+def isControlsEnabled():
+	return controlsEnabled;
+
 #	--------------------------------------------------- *\
 #		[function] setPlayer(playerElement)
 #

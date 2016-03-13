@@ -1,5 +1,6 @@
 from interfaces.DialogInterface import DialogInterface;
 from interfaces.TransitionInterface import TransitionInterface;
+from interfaces.PauseInterface import PauseInterface;
 
 gv = None;
 
@@ -7,7 +8,8 @@ def setActive():
 	global gv;
 	gv = {
 		"dialogInterface" : DialogInterface(),
-		"transitionInterface" : TransitionInterface()
+		"transitionInterface" : TransitionInterface(),
+		"pauseInterface" : PauseInterface()
 	};
 	
 

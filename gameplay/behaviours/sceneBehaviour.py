@@ -1,5 +1,6 @@
 from gameplay.behaviours import cameraBehaviour;
 from gameplay.behaviours import characterBehaviour;
+from gameplay.behaviours import playerBehaviour;
 import gameplay.Scene;
 from gameplay import GlobalVars;
 
@@ -60,6 +61,7 @@ def setCurrentScene(scene):
 	cam.setPosition(targetPosition[0], targetPosition[1] - targetSize[1] * 2);
 
 
+
 #	--------------------------------------------------- *\
 #		[function] getCurrentScene()
 #
@@ -79,13 +81,17 @@ def switchScene(sceneName, targetPosition):
 	global _name;
 	global _pos;
 	if usedScene != None:
+		playerBehaviour.setControlsEnabled(False);
+
 		transition.create();
 		transition.whenDone(transitionDone);
 		_name = sceneName;
 		_pos = targetPosition;
+
 
 def transitionDone():
 	usedScene.destroy();
 	scene = gameplay.Scene.Scene(_name);
 	setCurrentScene(scene);
 	usedPlayer.setPosition(_pos[0], scene.getGroundPosition(usedPlayer));
+	playerBehaviour.setControlsEnabled(True);

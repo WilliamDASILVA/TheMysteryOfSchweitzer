@@ -2,10 +2,10 @@ from threading import Timer;
 #	--------------------------------------------------- *\
 #		Global module
 #	--------------------------------------------------- */
-isApplicationRunning = True;
-screenSize = width, height = 960, 540;
+isApplicationRunning = False;
+screenSize = [960, 540];
 ratio = screenSize[0]/screenSize[1];
-scale = (1/ratio)*(width/530);
+scale = (1/ratio)*(screenSize[0]/530);
 windowTitle = "The Mystery of Schweitzer";
 screen = None;
 
@@ -13,6 +13,21 @@ dispatchers = [];
 receivers = [];
 
 haveInterfaceOpen = False;
+
+def setScreenSize(width, height):
+	global screenSize;
+	global ratio;
+	global scale;
+
+
+	screenSize[0] = width;
+	screenSize[1] = height;
+
+	# update ratio / scale
+	ratio = screenSize[0]/screenSize[1];
+	scale = (1/ratio)*(screenSize[0]/530);
+
+
 
 def getScreenSize():
 	return screenSize;

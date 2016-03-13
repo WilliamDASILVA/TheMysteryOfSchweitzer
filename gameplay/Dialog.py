@@ -20,7 +20,7 @@ class Dialog():
 
 		# load the dialog tree
 		if self.file:
-			f = open("assets/dialogs/" + self.file + ".json", "r");
+			f = open("assets/dialogs/" + self.file + ".json", "r", encoding='utf-8');
 			if f:
 				self.tree = json.load(f);
 				f.close();

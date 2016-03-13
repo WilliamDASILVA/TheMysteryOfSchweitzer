@@ -20,6 +20,7 @@ def setCamera(camera):
 	global cameraToUse
 	cameraToUse = camera;
 
+
 #	--------------------------------------------------- *\
 #		[function] pause(value)
 #

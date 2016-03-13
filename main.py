@@ -9,6 +9,8 @@
 #		Import modules
 #	--------------------------------------------------- */
 import pygame;
+import sys;
+import os;
 from engine.World import World;
 from engine.Camera import Camera;
 from engine import Update;
@@ -25,6 +27,7 @@ from gameplay.Inventory import Inventory;
 from gameplay.Item import Item;
 from gameplay.Background import Background;
 from gameplay.Pickup import Pickup;
+from gameplay.Achievement import Achievement;
 
 from gameplay.behaviours import cameraBehaviour;
 from gameplay.behaviours import playerBehaviour;
@@ -33,10 +36,13 @@ from gameplay.behaviours import characterBehaviour;
 from gameplay.behaviours import sceneBehaviour;
 from gameplay.behaviours import inventoryBehaviour;
 from gameplay.behaviours import backgroundBehaviour;
+from gameplay.behaviours import achievementBehaviour;
+from gameplay.behaviours import pauseBehaviour;
 
 from engine.Input import Keyboard;
 
 from gameplay.ActionReceiver import ActionReceiver;
+from gameplay.ActionDispatcher import ActionDispatcher;
 from engine.render.image import Image;
 
 from gameplay.Dialog import Dialog;
@@ -46,6 +52,7 @@ from engine import Debug
 from interfaces.DialogInterface import DialogInterface;
 from interfaces.InventoryInterface import InventoryInterface;
 from interfaces.TransitionInterface import TransitionInterface;
+from interfaces.PauseInterface import PauseInterface;
 
 from cinematics.TestCinematic import TestCinematic;
 
@@ -57,73 +64,127 @@ from gameplay import GlobalVars;
 pygame.init();
 pygame.display.init();
 
-Global.screen = pygame.display.set_mode(Global.screenSize, pygame.HWSURFACE);
 pygame.display.set_caption(Global.windowTitle);
 
-# global vars
-GlobalVars.setActive();
+def startGame():
+	# global vars
+	GlobalVars.setActive();
 
-# world
-world = World();
+	# world
+	world = World();
 
-# camera
-cam = Camera(world);
-Render.setCamera(cam);
-cameraBehaviour.setCamera(cam);
+	# camera
+	cam = Camera(world);
+	Render.setCamera(cam);
+	cameraBehaviour.setCamera(cam);
 
-# get saved data before game start
+
+	# player element
+	player = Player();
+
+	# player's inventory
+	playerInventory = Inventory();
+	inventoryBehaviour.setActive(True);
+	inventoryBehaviour.setInventory(playerInventory);
+
+	inventoryInterface = InventoryInterface();
+	inventoryBehaviour.setInterface(inventoryInterface);
+	def saySomething():
+		print("HELLO WORLD!!!!");
+
+	myItem = Item("Test", "A test item", "assets/icons/inventory/test.png");
+	myItem.onSelection(saySomething);
+
+
+	playerInventory.addItem(myItem);
+	playerInventory.addItem(Item("Un autre truc", "Une description un peu plus longue..", "assets/icons/inventory/test.png"));
+
+	# debug active
+	Debug.setActive(True);
+
+	# action dispatcher active
+	actiondispatcherBehaviour.setActive(True);
+	actiondispatcherBehaviour.assignPlayer(player);
+
+	# player behaviours active
+	playerBehaviour.setPlayer(player);
+	playerBehaviour.setActive();
+
+	# load a scene for test
+	sceneBehaviour.setActive();
+	sceneBehaviour.setPlayer(player);
+
+	# check if the user have a saved game
+	newGame = Data.getData("isNewGame");
+	mainScene = None;
+	if not (newGame):
+		lastScene = Data.getData("lastScene");
+		position = Data.getData("lastPosition");
+
+		mainScene = Scene(lastScene);
+		sceneBehaviour.setCurrentScene(mainScene);
+
+		player.setPosition(position[0], position[1]);
+		print("Last game has been loaded");
+
+	else:
+		# start a normal game
+		mainScene = Scene("scene2");
+		sceneBehaviour.setCurrentScene(mainScene);
+
+
+	# character behaviour active
+	characterBehaviour.setActive(True);
+
+	# enable dialog system
+	dialogBehaviour.setActive(True);
+
+	# background behaviour
+	backgroundBehaviour.setActive(True);
+	backgroundBehaviour.setPlayer(player);
+
+	# achievement behaviour
+	achievementBehaviour.setActive(True);
+
+	myAchievement = Achievement("Secretariat", "Vous devez aller au secretariat", lambda:print("YOUDIDIT"));
+	achievementBehaviour.setAchievement(myAchievement);
+	myAchievement.done();
+
+	# pause behaviour
+	pauseBehaviour.setActive(True);
+
+
+	Global.isApplicationRunning = True;
+
+
+# getting data
 Data.getSavedData();
 
-# player element
-player = Player();
+infoObject = pygame.display.Info();
 
-# player's inventory
-playerInventory = Inventory();
-inventoryBehaviour.setActive(True);
-inventoryBehaviour.setInventory(playerInventory);
-
-inventoryInterface = InventoryInterface();
-inventoryBehaviour.setInterface(inventoryInterface);
-def saySomething():
-	print("HELLO WORLD!!!!");
-
-myItem = Item("Test", "A test item", "assets/icons/inventory/test.png");
-myItem.onSelection(saySomething);
+# restart the current application
+def restartApp():
+	os.startfile(os.path.abspath(__file__));
+	os._exit(99);
 
 
-playerInventory.addItem(myItem);
-playerInventory.addItem(Item("Un autre truc", "Une description un peu plus longue..", "assets/icons/inventory/test.png"));
+def startApp():
+	# get saved data before game start
+	screenSize = Data.getData("screenSize");
+	Global.setScreenSize(screenSize[0], screenSize[1]);
 
-# debug active
-Debug.setActive(True);
+	settings = pygame.HWSURFACE;
+	isFullScreen = Data.getData("fullscreen");
+	if isFullScreen == "True":
+		settings = settings | pygame.FULLSCREEN;
+		Global.setScreenSize(infoObject.current_w, infoObject.current_h);
 
-# action dispatcher active
-actiondispatcherBehaviour.setActive(True);
-actiondispatcherBehaviour.assignPlayer(player);
 
-# player behaviours active
-playerBehaviour.setPlayer(player);
-playerBehaviour.setActive();
+	Global.screen = pygame.display.set_mode(Global.screenSize, settings);
+	startGame();
 
-# load a scene for test
-sceneBehaviour.setActive();
+startApp();
 
-mainScene = Scene("scene2");
-sceneBehaviour.setPlayer(player);
-sceneBehaviour.setCurrentScene(mainScene);
-
-# character behaviour active
-characterBehaviour.setActive(True);
-
-# enable dialog system
-dialogBehaviour.setActive(True);
-
-# background behaviour
-backgroundBehaviour.setActive(True);
-backgroundBehaviour.setPlayer(player);
-
-testCinema = TestCinematic();
-testCinema.start();
 
 #	--------------------------------------------------- *\
 #		Main loop
@@ -131,6 +192,7 @@ testCinema.start();
 while Global.isApplicationRunning:
 	Render.onUpdate();
 	Update.onUpdate();
+
 
 	event = pygame.event.poll();
 	if(event.type == pygame.QUIT):

@@ -72,6 +72,7 @@ class TransitionInterface(Interface):
 					self.currentOpacity = 0;
 					self.fadeInterval.destroy();
 					self.fadeDone = True;
+
 					self.delete();
 
 

@@ -30,7 +30,7 @@ class Sprite(Image):
 		self.frameHeight = textureSize[1];
 
 		self.timer = None;
-		self.timer = Global.setInterval(self.updateFrames, 1000/self.getSpeed());
+		self.timer = Global.Interval(self.updateFrames, 1000/self.getSpeed());
 
 	#	--------------------------------------------------- *\
 	#		[function] updateFrames()
@@ -87,8 +87,8 @@ class Sprite(Image):
 		self.speed = speed;
 		# update the interval since we edited the speed
 		if not self.timer is None:
-			Global.destroyInterval(self.timer);
-			self.timer = Global.setInterval(self.updateFrames, 1000/self.getSpeed());
+			self.timer.destroy();
+			self.timer = Global.Interval(self.updateFrames, 1000/self.getSpeed());
 
 
 	#	--------------------------------------------------- *\

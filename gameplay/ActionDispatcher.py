@@ -12,12 +12,12 @@ class ActionDispatcher(Element):
 	#
 	#		* Constructor *
 	#	--------------------------------------------------- */
-	def __init__(self, dispatcherID, x, y):
+	def __init__(self, dispatcherID, x, y, width = 250, height = 400):
 		super().__init__();
 		self.isOnZone = False;
 		self.id = dispatcherID;
 		self.setPosition(x, y);
-		self.setSize(250,400);
+		self.setSize(width, height);
 
 		self.functionsToCallWhenZone = [];
 

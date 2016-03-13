@@ -7,6 +7,10 @@ characters = [];
 
 scale = Global.scale;
 
+def stopMouvementForAllCharacters(value):
+    for character in characters:
+        character.isWalking(value);
+
 #    --------------------------------------------------- *\
 #        [function] setScene(scene)
 #

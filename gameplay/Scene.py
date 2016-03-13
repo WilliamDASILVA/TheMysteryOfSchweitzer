@@ -38,10 +38,11 @@ class Scene(Element):
 		self.sceneData = None;
 		self.spawnPoint = None;
 		self.name = "";
+		self.file = sceneToLoad;
 
 		# load a scene
 		if sceneToLoad:
-			f = open("assets/scenes/" + sceneToLoad + ".json", "r");
+			f = open("assets/scenes/" + sceneToLoad + ".json", "r", encoding='utf-8');
 			if f:
 				self.sceneData = json.load(f);
 				f.close();
@@ -145,6 +146,15 @@ class Scene(Element):
 		return self.name;
 
 	#	--------------------------------------------------- *\
+	#		[function] getFileName()
+	#
+	#		* Return the scene's filename *
+	#		Return : file
+	#	--------------------------------------------------- */
+	def getFileName(self):
+		return self.file;
+
+	#	--------------------------------------------------- *\
 	#		[function] assign()
 	#
 	#		* Assign a player to the scene *
@@ -189,6 +199,7 @@ class Scene(Element):
 		
 		for action in self.actions:
 			action.destroy();
+			Render.delete(action);
 
 		self.actions = [];
 		self.assignedElements = [];

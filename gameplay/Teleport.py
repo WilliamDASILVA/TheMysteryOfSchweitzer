@@ -20,7 +20,6 @@ class Teleport(Element):
 	def __init__(self, position, targetScene, targetPosition):
 		super().__init__();
 		self.setType("teleportation");
-		self.setPosition(position[0], position[1]);
 
 		self.uniqid = uuid.uuid4();
 		self.action = ActionDispatcher(self.uniqid, position[0], position[1]);
@@ -29,9 +28,11 @@ class Teleport(Element):
 
 		texture = Image("assets/icons/door.png");
 		texture.setSize(64,64);
-		texture.setPosition(position[0] + 93, position[1] + 336);
+		texture.setOffsetPosition(93,300);
 		texture.setDepth(101);
 		self.assignDrawable(texture);
+
+		self.setPosition(position[0], position[1]);
 
 		self.targetScene = targetScene;
 		self.targetPosition = targetPosition;
