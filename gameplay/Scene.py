@@ -134,7 +134,7 @@ class Scene(Element):
 		size = self.getSize();
 		playerSize = playerElement.getSize();
 
-		return size[1] - playerSize[1];
+		return 400 - playerSize[1];
 
 	#	--------------------------------------------------- *\
 	#		[function] getName()

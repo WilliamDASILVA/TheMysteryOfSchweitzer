@@ -58,7 +58,7 @@ def setCurrentScene(scene):
 
 	targetPosition = usedPlayer.getPosition();
 	targetSize = usedPlayer.getSize();
-	cam.setPosition(targetPosition[0], targetPosition[1] - targetSize[1] * 2);
+	cam.setPosition(targetPosition[0], targetPosition[1] - 64 * 2);
 
 
 

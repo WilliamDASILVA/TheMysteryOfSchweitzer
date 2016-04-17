@@ -21,12 +21,13 @@ class Player(Element):
 		self.speed = 10;
 
 		# assign a drawable for test
-		drawable = Sprite("assets/spriteTest.png", 5);
-		drawable.setSize(64,64);
+		drawable = Sprite("assets/characters/wared/walking.png", 7);
+		drawable.setSpeed(12);
+		drawable.setSize(256,256);
 		self.setDepth(2);
 		self.assignDrawable(drawable);
 
-		self.setSize(64,64);
+		self.setSize(256,256);
 
 		Render.set(self);
 

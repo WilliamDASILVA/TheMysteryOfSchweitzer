@@ -26,6 +26,7 @@ class Sprite(Image):
 
 		texture = self.getTexture();
 		textureSize = texture.get_size();
+
 		self.frameWidth = textureSize[0] / self.maxImage;
 		self.frameHeight = textureSize[1];
 
@@ -76,6 +77,16 @@ class Sprite(Image):
 	#	--------------------------------------------------- */
 	def getFrameSize(self):
 		return (self.frameWidth, self.frameHeight);
+
+	#	--------------------------------------------------- *\
+	#		[function] setFrameSize()
+	#
+	#		* Return the size of a frame *
+	#		Return : size
+	#	--------------------------------------------------- */
+	def setFrameSize(self, width, height):
+		self.frameWidth = width;
+		self.frameHeight = height;
 
 	#	--------------------------------------------------- *\
 	#		[function] setSpeed(speed)

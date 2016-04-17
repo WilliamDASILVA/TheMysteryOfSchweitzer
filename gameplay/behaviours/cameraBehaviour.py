@@ -116,7 +116,7 @@ def cameraUpdate():
 			targetPosition = fixeTarget.getPosition();
 			if appendToElement:
 				targetSize = fixeTarget.getSize();
-				cameraToUse.setPosition(targetPosition[0] *scale, (targetPosition[1] - targetSize[1] * 2) *scale);
+				cameraToUse.setPosition((targetPosition[0] + (targetSize[0] / 2)) *scale, (targetPosition[1] + (targetSize[1] / 4)) *scale);
 
 			# check for scene boudaries
 			if usedScene:

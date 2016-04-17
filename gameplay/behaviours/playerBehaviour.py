@@ -140,5 +140,7 @@ def updatePosition():
 				k[0] -= player.getSpeed() *scale;
 			elif movingDirection == "right" and canMoveRight:
 				k[0] += player.getSpeed() *scale;
+
+			k[1] = 400 - size[1];
 			
-			player.setPosition(k[0], position[1]);
+			player.setPosition(k[0], k[1]);

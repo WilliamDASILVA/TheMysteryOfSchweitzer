@@ -53,6 +53,7 @@ from interfaces.DialogInterface import DialogInterface;
 from interfaces.InventoryInterface import InventoryInterface;
 from interfaces.TransitionInterface import TransitionInterface;
 from interfaces.PauseInterface import PauseInterface;
+from interfaces.MenuInterface import MenuInterface;
 
 from cinematics.TestCinematic import TestCinematic;
 
@@ -152,9 +153,13 @@ def startGame():
 
 	# pause behaviour
 	pauseBehaviour.setActive(True);
-
-
 	Global.isApplicationRunning = True;
+
+
+def startMenu():
+	#myInterface = MenuInterface().create();
+	startGame();
+	
 
 
 # getting data
@@ -181,7 +186,7 @@ def startApp():
 
 
 	Global.screen = pygame.display.set_mode(Global.screenSize, settings);
-	startGame();
+	startMenu();
 
 startApp();
 
