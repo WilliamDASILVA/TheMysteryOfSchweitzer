@@ -89,8 +89,18 @@ def moveLeft(state):
 		if state == "down":
 			isMoving = True;
 			movingDirection = "left";
+			# change sprite state
+			if(player):
+				player.useSprite("walking");
+				drawable = player.getAssignedDrawables()[0];
+				drawable.setFlip(True);
 		else:
 			isMoving = False;
+			# change sprite state
+			if(player):
+				player.useSprite("static");
+				drawable = player.getAssignedDrawables()[0];
+				drawable.setFlip(True);
 
 #	--------------------------------------------------- *\
 #		[function] moveRight()
@@ -105,9 +115,19 @@ def moveRight(state):
 		if state == "down":
 			isMoving = True;
 			movingDirection = "right";
+			# change sprite state
+			if(player):
+				player.useSprite("walking");
+				drawable = player.getAssignedDrawables()[0];
+				drawable.setFlip(False);
 		else:
 			isMoving = False;
-		
+			# change sprite state
+			if(player):
+				player.useSprite("static");
+				drawable = player.getAssignedDrawables()[0];
+				drawable.setFlip(False);
+
 #	--------------------------------------------------- *\
 #		[function] onUpdate()
 #

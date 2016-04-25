@@ -136,6 +136,9 @@ def onUpdate():
 							newTexture = pygame.Surface((frameSize[0], frameSize[1]), pygame.SRCALPHA);
 							newTexture.blit(texture, (0,0), crop);
 							newTexture = pygame.transform.scale(newTexture, (size[0],size[1]));
+							if(e.getFlip()):
+								newTexture = pygame.transform.flip(newTexture, True, False);
+								
 							if(e.getOpacity() != 1):
 								blit_alpha(Global.screen, newTexture, renderPosition, e.getOpacity() * 255);
 							else:

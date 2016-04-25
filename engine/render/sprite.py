@@ -14,18 +14,22 @@ class Sprite(Image):
 	#
 	#		* Constructor *
 	#	--------------------------------------------------- */
-	def __init__(self, imagePath, frames, uniqueLoop = False):
+	def __init__(self, imagePath, frames = None, uniqueLoop = False):
 		super().__init__(imagePath);
 		self.type = "sprite";
 		self.speed = 24; # images per second
 		self.isPaused = False;
 		self.currentImage = 0;
-		self.maxImage = frames;
 		self.isUniqueLoop = uniqueLoop;
 		self.loopFinished = False;
+		self.isFlipped = False;
 
 		texture = self.getTexture();
 		textureSize = texture.get_size();
+		if not frames:
+			self.maxImage = textureSize[0] / 64;
+		else:
+			self.maxImage = frames;
 
 		self.frameWidth = textureSize[0] / self.maxImage;
 		self.frameHeight = textureSize[1];
@@ -87,6 +91,22 @@ class Sprite(Image):
 	def setFrameSize(self, width, height):
 		self.frameWidth = width;
 		self.frameHeight = height;
+
+	#	--------------------------------------------------- *\
+	#		[function] setFlip()
+	#
+	#		* Set if the sprite is flipped or not *
+	#	--------------------------------------------------- */
+	def setFlip(self, value):
+		self.isFlipped = value;
+
+	#	--------------------------------------------------- *\
+	#		[function] getFlip()
+	#
+	#		* Return if the sprite is flipped or not *
+	#	--------------------------------------------------- */
+	def getFlip(self):
+		return self.isFlipped;
 
 	#	--------------------------------------------------- *\
 	#		[function] setSpeed(speed)

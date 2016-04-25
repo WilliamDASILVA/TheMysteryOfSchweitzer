@@ -2,6 +2,7 @@
 from engine.Element import Element;
 from gameplay.behaviours.characterBehaviour import *;
 from engine.render.image import Image;
+from engine.render.sprite import Sprite;
 from engine import Render;
 from gameplay.ActionDispatcher import ActionDispatcher;
 from gameplay.ActionReceiver import ActionReceiver;
@@ -21,7 +22,7 @@ class Character(Element):
     #
     #        * Constructor *
     #    --------------------------------------------------- */
-    def __init__(self, direction = "right", speed = 2):
+    def __init__(self, direction = "right", speed = 2, characterName = None):
         super().__init__();
         self.setType("character");
 
@@ -29,6 +30,7 @@ class Character(Element):
         self.walking = True;
         self.speed = speed;
         self.reachBorder = False;
+        self.characterName = characterName;
 
         self.dialogStarted = False;
         self.assignedDialog = None;
@@ -41,13 +43,33 @@ class Character(Element):
         self.receiver.on(self.callFunctions);
 
         # character texture
-        texture = Image("assets/dickbutt.png");
-        self.setSize(64,64);
-        self.assignSkin(texture);
+        self.sprites = {
+            "walking" : Sprite("assets/characters/" + characterName + "/walking.png"),
+            "static" : Sprite("assets/characters/" + characterName + "/static.png")
+        };
 
+        # sprite settings
+        self.sprites['walking'].setSpeed(6);
+        self.sprites['walking'].setSize(256, 256);
+
+        self.sprites['static'].setSpeed(1);
+        self.sprites['static'].setSize(256, 256);
+
+        self.setSize(256,256);
+        self.assignDrawable(self.sprites['static']);
         self.setDepth(50);
 
         characters.append(self);
+
+    #   --------------------------------------------------- *\
+    #       [function] useSprite(spriteName)
+    #
+    #       * Use a specific sprite in the character assets list *
+    #   --------------------------------------------------- */
+    def useSprite(self, spriteName):
+        self.assignedDrawables[0] = self.sprites[spriteName];
+        self.setPosition(self.position[0], self.position[1]);
+
 
     #    --------------------------------------------------- *\
     #        [function] callFunctions()
@@ -126,7 +148,7 @@ class Character(Element):
     #        Return : nil
     #    --------------------------------------------------- */
     def assignSkin(self, skin):
-        skin.setSize(50,50);
+        skin.setSize(256,256);
         skinSize = skin.getSize();
 
         self.assignDrawable(skin);

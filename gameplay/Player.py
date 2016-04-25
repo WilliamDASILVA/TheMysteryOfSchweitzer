@@ -21,11 +21,20 @@ class Player(Element):
 		self.speed = 10;
 
 		# assign a drawable for test
-		drawable = Sprite("assets/characters/wared/walking.png", 7);
-		drawable.setSpeed(12);
-		drawable.setSize(256,256);
+		self.sprites = {
+			"walking" : Sprite("assets/characters/muller/walking.png"),
+			"static" : Sprite("assets/characters/muller/static.png", 2)
+		};
+
+		# sprite settings
+		self.sprites['walking'].setSpeed(12);
+		self.sprites['walking'].setSize(256, 256);
+
+		self.sprites['static'].setSpeed(1);
+		self.sprites['static'].setSize(256, 256);
+
 		self.setDepth(2);
-		self.assignDrawable(drawable);
+		self.assignDrawable(self.sprites['static']);
 
 		self.setSize(256,256);
 
@@ -57,3 +66,12 @@ class Player(Element):
 	#	--------------------------------------------------- */
 	def getAssignedScene(self):
 		return self.assignedScene;
+
+	#	--------------------------------------------------- *\
+	#		[function] useSprite(spriteName)
+	#
+	#		* Use a specific sprite in the character assets list *
+	#	--------------------------------------------------- */
+	def useSprite(self, spriteName):
+		self.assignedDrawables[0] = self.sprites[spriteName];
+		self.setPosition(self.position[0], self.position[1]);

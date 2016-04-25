@@ -48,16 +48,29 @@ def updatePositions():
             if character.isWalking():
                 if direction == "left":
                     character.setPosition(position[0] - (character.getSpeed() *scale), position[1]);
+                    character.useSprite("walking");
+                    drawable = character.getAssignedDrawables()[0];
+                    drawable.setFlip(True);
                 else:
                     character.setPosition(position[0] + (character.getSpeed() *scale), position[1]);
+                    character.useSprite("walking");
+                    drawable = character.getAssignedDrawables()[0];
+                    drawable.setFlip(False);
 
                 # hitbox
-                if (position[0] > 0 and position[0] + size[0] < 100):
+                if (position[0] > 0 and position[0] + size[0] < 512):
                     character.setDirection("right");
 
-                if (position[0] > sceneSize[0] - 100 and position[0] + size[0] < sceneSize[0]):
+                if (position[0] > sceneSize[0] - 384 and position[0] + size[0] < sceneSize[0]):
                     character.setDirection("left");
-
-                
+            else:
+                if direction == "left":
+                    character.useSprite("static");
+                    drawable = character.getAssignedDrawables()[0];
+                    drawable.setFlip(True);
+                else:
+                    character.useSprite("static");
+                    drawable = character.getAssignedDrawables()[0];
+                    drawable.setFlip(False);
 
 Update.on(updatePositions);

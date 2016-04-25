@@ -5,8 +5,8 @@
 
 		["teleport", "scene3", 0,0, 0,0],
 
-		["character", "test", 0,0, "wared", "right", 3],
-		["character", "test", 500,0, "surveillant1", "left", 3],
+		["character", "wared", 0,0, "wared", "right", 3],
+		["character", "paillole", 500,0, "wared", "left", 4],
 
 		["wall", "simple", 0,0],
 		["wall", "simple", 250,0],

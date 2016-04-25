@@ -81,7 +81,7 @@ class Scene(Element):
 				elif _type == "spawn":
 					self.spawnPoint = position;
 				elif _type == "character":
-					element = Character(e[5], e[6]);
+					element = Character(e[5], e[6], e[1]);
 					position = [e[2], self.getGroundPosition(element)];
 
 					dialog = Dialog(e[4]);
