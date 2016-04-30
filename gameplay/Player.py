@@ -22,8 +22,8 @@ class Player(Element):
 
 		# assign a drawable for test
 		self.sprites = {
-			"walking" : Sprite("assets/characters/muller/walking.png"),
-			"static" : Sprite("assets/characters/muller/static.png", 2)
+			"walking" : Sprite("assets/characters/william/walking.png"),
+			"static" : Sprite("assets/characters/william/static.png", 2)
 		};
 
 		# sprite settings
