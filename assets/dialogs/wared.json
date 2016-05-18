@@ -1,0 +1,8 @@
+{
+	"1" : ["Wared", "Mr. DA SILVA, vous avez fait vos exercices de Maths?", "2", "wared"],
+	"2" : ["Wared", "Ce n'étaient pourtant que des calculs d'épissier.", "3", "wared"],
+	"3" : ["William", "Ils n'étaient pas pour samedi ?", "4", "william"],
+	"4" : ["Wared", "Ne me faîtes pas dire ce que je n'ai pas dit!", "5", "wared"],
+	"5" : ["Wared", "Rappellez-vous que diviser c'est multiplier par l'inverse! Allez en cours maintenant.", "end", "wared"]
+}
+

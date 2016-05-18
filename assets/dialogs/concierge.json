@@ -1,0 +1,7 @@
+{
+	"1" : ["William", "Bonjour, je suis à la recherche de la chaussure d'un ancien étudiant du nom de Jean-Michel Edouard.", "2", "william"],
+	"2" : ["Concierge", "Ohh oui, je me souviens de ce petit gars. Il se faisait toujours embeté par cette bande de voyoux.", "3", "muller"],
+	"3" : ["Concierge", "Je ne sais cependant pas où est passé cette satané chaussure.", "4", "muller"],
+	"4" : ["Concierge", "Tu devrais aller voir au secrétariat, je suis sûr ils ont d'anciens documents à te fournir.", "5", "muller"],
+	"5" : ["William", "D'accord, merci.", "end", "william"]
+}

@@ -1,0 +1,5 @@
+{
+	"1" : ["Surveillant", "Hé ! Qu'est ce que tu fais à trainer dans les couloirs?!", "2", "muller"],
+	"2" : ["Surveillant", "Retourne en cours !", "end", "muller"]
+}
+
