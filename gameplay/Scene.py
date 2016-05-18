@@ -84,9 +84,11 @@ class Scene(Element):
 					element = Character(e[5], e[6], e[1]);
 					position = [e[2], self.getGroundPosition(element)];
 
-					dialog = Dialog(e[4]);
-					dialog.assignInterface(GlobalVars.getVar("dialogInterface"));
-					element.assignDialog(dialog);
+					if(e[4] != None):
+						dialog = Dialog(e[4]);
+						dialog.assignInterface(GlobalVars.getVar("dialogInterface"));
+						element.assignDialog(dialog);
+
 				elif _type == "teleport":
 					targetScene = data;
 					targetPosition = [e[4], e[5]];

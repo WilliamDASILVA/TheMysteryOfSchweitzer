@@ -11,6 +11,7 @@
 import pygame;
 import sys;
 import os;
+from copy import deepcopy;
 from engine.World import World;
 from engine.Camera import Camera;
 from engine import Update;
@@ -38,6 +39,7 @@ from gameplay.behaviours import inventoryBehaviour;
 from gameplay.behaviours import backgroundBehaviour;
 from gameplay.behaviours import achievementBehaviour;
 from gameplay.behaviours import pauseBehaviour;
+from gameplay.behaviours import menuBehaviour;
 
 from engine.Input import Keyboard;
 
@@ -66,54 +68,54 @@ pygame.init();
 pygame.display.init();
 
 pygame.display.set_caption(Global.windowTitle);
+isGameStarting = False;
 
-def startGame():
-	# global vars
-	GlobalVars.setActive();
-
-	# world
-	world = World();
-
-	# camera
-	cam = Camera(world);
-	Render.setCamera(cam);
-	cameraBehaviour.setCamera(cam);
+pygame.mixer.init();
 
 
+def initGame():
 	# player element
 	player = Player();
 
 	# player's inventory
 	playerInventory = Inventory();
-	inventoryBehaviour.setActive(True);
 	inventoryBehaviour.setInventory(playerInventory);
-
+	
 	inventoryInterface = InventoryInterface();
 	inventoryBehaviour.setInterface(inventoryInterface);
-	def saySomething():
-		print("HELLO WORLD!!!!");
 
-	myItem = Item("Test", "A test item", "assets/icons/inventory/test.png");
-	myItem.onSelection(saySomething);
+	actiondispatcherBehaviour.assignPlayer(player);
+
+	# player behaviours active
+	playerBehaviour.setPlayer(player);
+	
+	sceneBehaviour.setPlayer(player);
+	
+	backgroundBehaviour.setPlayer(player);
+	
+def startGame():
+	inventoryBehaviour.setActive(True);
+
+	# def saySomething():
+	# 	print("HELLO WORLD!!!!");
+
+	# myItem = Item("Test", "A test item", "assets/icons/inventory/test.png");
+	# myItem.onSelection(saySomething);
 
 
-	playerInventory.addItem(myItem);
-	playerInventory.addItem(Item("Un autre truc", "Une description un peu plus longue..", "assets/icons/inventory/test.png"));
+	# playerInventory.addItem(myItem);
+	# playerInventory.addItem(Item("Un autre truc", "Une description un peu plus longue..", "assets/icons/inventory/test.png"));
 
 	# debug active
 	Debug.setActive(True);
 
 	# action dispatcher active
 	actiondispatcherBehaviour.setActive(True);
-	actiondispatcherBehaviour.assignPlayer(player);
 
-	# player behaviours active
-	playerBehaviour.setPlayer(player);
 	playerBehaviour.setActive();
 
 	# load a scene for test
 	sceneBehaviour.setActive();
-	sceneBehaviour.setPlayer(player);
 
 	# check if the user have a saved game
 	newGame = Data.getData("isNewGame");
@@ -125,7 +127,7 @@ def startGame():
 		mainScene = Scene(lastScene);
 		sceneBehaviour.setCurrentScene(mainScene);
 
-		player.setPosition(position[0], position[1]);
+		playerBehaviour.getPlayer().setPosition(position[0], position[1]);
 		print("Last game has been loaded");
 
 	else:
@@ -142,7 +144,6 @@ def startGame():
 
 	# background behaviour
 	backgroundBehaviour.setActive(True);
-	backgroundBehaviour.setPlayer(player);
 
 	# achievement behaviour
 	achievementBehaviour.setActive(True);
@@ -154,11 +155,67 @@ def startGame():
 	# pause behaviour
 	pauseBehaviour.setActive(True);
 	Global.isApplicationRunning = True;
+	isGameStarting = False;
+
+def startSettings():
+	pass;
+
+def startCredits():
+	pass;
+
+def doQuit():
+	Global.isApplicationRunning = False;
+	pygame.quit();
+	os._exit(0);
+
+def continueGame():
+	Data.setData("isNewGame", False);
+	startGame();
+	menuBehaviour.open();
+
+def startNewGame():
+	print("new game");
+	Data.setData("isNewGame", True);
+	isGameStarting = True;
+	menuBehaviour.open();
+	startGame();
 
 
 def startMenu():
-	#myInterface = MenuInterface().create();
-	startGame();
+	# global vars
+	GlobalVars.setActive();
+
+	# world
+	world = World();
+
+	# camera
+	cam = Camera(world);
+	Render.setCamera(cam);
+	cameraBehaviour.setCamera(cam);
+
+
+	Global.isApplicationRunning = True;
+
+	# sounds
+	GlobalVars.getVar("sounds")['thunder'].play();
+	GlobalVars.getVar("sounds")['creepy'].play();
+
+	# menu behaviour
+	menuBehaviour.setActive(True);
+	menuBehaviour.open();
+
+	menuBehaviour.assign("play", menuBehaviour.playMenu);
+	menuBehaviour.assign("settings", startSettings);
+	menuBehaviour.assign("credits", startCredits);
+	menuBehaviour.assign("quit", doQuit);
+	menuBehaviour.assign("continue", continueGame);
+	menuBehaviour.assign("new", startNewGame);
+
+	newGame = Data.getData("isNewGame");
+	menuBehaviour.setNewGame(newGame);
+
+
+	#startGame();
 	
 
 
@@ -187,6 +244,7 @@ def startApp():
 
 	Global.screen = pygame.display.set_mode(Global.screenSize, settings);
 	startMenu();
+	initGame();
 
 startApp();
 
@@ -203,21 +261,25 @@ while Global.isApplicationRunning:
 	if(event.type == pygame.QUIT):
 		Global.isApplicationRunning = False;
 		pygame.quit();
+		os._exit(0);
 
 	# Keyboard events
-	if(event.type == pygame.KEYDOWN):
-		for e in Input.events:
-			for key in Input.events[e]['keys']:
-				if(key == event.key):
-					# call functions
-					for func in Input.events[e]['functions']:
-						func("down");
-	elif event.type == pygame.KEYUP:
-		for e in Input.events:
-			for key in Input.events[e]['keys']:
-				if(key == event.key):
-					# call functions
-					for func in Input.events[e]['functions']:
-						func("up");
+	if not (isGameStarting):
+		if(event.type == pygame.KEYDOWN):
+			k=deepcopy(Input.events);
+			for e in k:
+				for key in Input.events[e]['keys']:
+					if(key == event.key):
+						# call functions
+						for func in Input.events[e]['functions']:
+							func("down");
+		elif event.type == pygame.KEYUP:
+			k=deepcopy(Input.events);
+			for e in k:
+				for key in Input.events[e]['keys']:
+					if(key == event.key):
+						# call functions
+						for func in Input.events[e]['functions']:
+							func("up");
 
 

@@ -1,6 +1,8 @@
+import pygame;
 from interfaces.DialogInterface import DialogInterface;
 from interfaces.TransitionInterface import TransitionInterface;
 from interfaces.PauseInterface import PauseInterface;
+from interfaces.MenuInterface import MenuInterface;
 
 gv = None;
 
@@ -9,7 +11,14 @@ def setActive():
 	gv = {
 		"dialogInterface" : DialogInterface(),
 		"transitionInterface" : TransitionInterface(),
-		"pauseInterface" : PauseInterface()
+		"menuInterface" : MenuInterface(),
+		"pauseInterface" : PauseInterface(),
+		"sounds" : {
+			"thunder" : pygame.mixer.Sound("assets/sounds/ambient_thunder.ogg"),
+			"bop" : pygame.mixer.Sound("assets/sounds/bop.ogg"),
+			"thunder" : pygame.mixer.Sound("assets/sounds/thunder.ogg"),
+			"creepy" : pygame.mixer.Sound("assets/sounds/ambient_creepy.ogg")
+		}
 	};
 	
 

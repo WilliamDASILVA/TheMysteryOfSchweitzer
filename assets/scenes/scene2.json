@@ -6,12 +6,12 @@
 		["teleport", "scene3", 0,0, 0,0],
 
 		["character", "wared", 0,0, "wared", "right", 3],
-		["character", "paillole", 500,0, "wared", "left", 4],
-		["character", "sara", 700,0, "wared", "left", 3],
+		["character", "paillole", 500,0, null, "left", 4],
+		["character", "sara", 700,0, null, "left", 3],
 		["character", "muller", 800,0, "wared", "left", 2],
-		["character", "random1", 800,0, "wared", "right", 4],
-		["character", "random1", 900,0, "wared", "left", 2],
-		["character", "random1", 200,0, "wared", "left", 3],
+		["character", "random1", 800,0, null, "right", 4],
+		["character", "ghost", 900,0, "ghost1", "left", 2],
+		["character", "random1", 200,0, null, "left", 3],
 
 		["wall", "simple", 0,0],
 		["wall", "simple", 250,0],
